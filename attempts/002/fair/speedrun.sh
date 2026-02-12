@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 # Attempt: 002-fair (optimized)
 # d26 + fp8 + 1M batch size + ratio 8.25
 # All 30-item experiment plan optimizations applied.
@@ -9,7 +10,7 @@ export OMP_NUM_THREADS=1
 export NANOCHAT_BASE_DIR="$HOME/.cache/nanochat"
 mkdir -p $NANOCHAT_BASE_DIR
 
-REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 ATTEMPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$REPO_ROOT"
 
