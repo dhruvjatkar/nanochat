@@ -5,10 +5,15 @@ set -e
 
 export PATH="$HOME/.local/bin:$PATH"
 export OMP_NUM_THREADS=1
+# Use scratch for uv cache when running from /scratch to avoid home quota
+_REPO_ROOT_ABS="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
+[[ "$_REPO_ROOT_ABS" == /scratch/* ]] && export UV_CACHE_DIR="$(dirname "$_REPO_ROOT_ABS")/.cache/uv"
 export NANOCHAT_BASE_DIR="${NANOCHAT_BASE_DIR:-$HOME/.cache/nanochat}"
+[[ "$_REPO_ROOT_ABS" == /scratch/* ]] && export NANOCHAT_BASE_DIR="$(dirname "$_REPO_ROOT_ABS")/.cache/nanochat"
 mkdir -p $NANOCHAT_BASE_DIR
+[[ -n "$UV_CACHE_DIR" ]] && mkdir -p "$UV_CACHE_DIR"
 
-REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
+REPO_ROOT="$_REPO_ROOT_ABS"
 ATTEMPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$REPO_ROOT"
 
