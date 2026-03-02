@@ -10,9 +10,9 @@ because $ATTEMPT_DIR is prepended to PYTHONPATH in speedrun.sh.
 """
 import os as _os
 
-# Navigate from attempts/002/fair/nanochat/ up to repo root nanochat/
+# Navigate from attempts/002/nanochat/ up to repo root nanochat/
 _root_nanochat = _os.path.normpath(
-    _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', '..', '..', '..', 'nanochat')
+    _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', '..', '..', 'nanochat')
 )
 if _os.path.isdir(_root_nanochat) and _root_nanochat not in __path__:
     __path__.append(_root_nanochat)

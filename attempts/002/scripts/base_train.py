@@ -83,6 +83,8 @@ parser.add_argument("--matrix-warmdown-frac", type=float, default=1.0, help="LR 
 parser.add_argument("--adamw-warmdown-frac", type=float, default=0.3, help="LR multiplier floor for AdamW params during warmdown")
 # Source: nanochat PR #498 + modded-nanogpt #45 PR #160 — Hyperball optimizer (item 9)
 parser.add_argument("--use-hyperball", action="store_true", help="use Hyperball optimizer for matrix params (norm projection instead of WD)")
+# TEON cross-layer orthogonalization for QKV attention params
+parser.add_argument("--use-teon", action="store_true", help="use TEON cross-layer orthogonalization for QKV attention params")
 # Source: modded-nanogpt record #39 PR #136 — heterogeneous batch sizes (item 22)
 parser.add_argument("--adam-every-n", type=int, default=2, help="run AdamW groups every N steps (1=every step, 2=every other)")
 # Source: modded-nanogpt record #53 PR #178 + arXiv:2404.19737 — multi-token prediction (item 23)
@@ -286,6 +288,8 @@ optimizer = model.setup_optimizer(
     weight_decay=weight_decay_scaled,
     # Source: nanochat PR #498 — Hyperball optimizer option (item 9)
     use_hyperball=args.use_hyperball,
+    # TEON cross-layer orthogonalization for QKV attention params
+    use_teon=args.use_teon,
 )
 
 if resuming:
@@ -480,7 +484,7 @@ while True:
     # Source: modded-nanogpt record #46 PR #163 — batch size schedule LR adjustment (item 21)
     _current_batch, batch_lr_adj = get_batch_config(step)
     for group in optimizer.param_groups:
-        is_matrix = group['kind'] == 'muon'
+        is_matrix = group['kind'] in ('muon', 'teon')
         lrm = get_lr_multiplier(step, is_matrix=is_matrix)
         group["lr"] = group["initial_lr"] * lrm * batch_lr_adj
         if is_matrix:

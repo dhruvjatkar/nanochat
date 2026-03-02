@@ -1,19 +1,15 @@
 #!/bin/bash
-set -e
-# Attempt: 002-fair (optimized)
+# Attempt: 003 (TEON cross-layer orthogonalization)
+# Based on 002-fair + TEON for QKV attention params
 # d26 + fp8 + 1M batch size + ratio 8.25
-# All 30-item experiment plan optimizations applied.
-# See attempts/002/h200-opts/NOTES.md for full details and source citations.
+# All 30-item experiment plan optimizations applied + TEON cross-layer Muon.
 
 export PATH="$HOME/.local/bin:$PATH"
 export OMP_NUM_THREADS=1
-REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
-# Use scratch for uv/nanochat cache when running from /scratch to avoid home quota
-[[ "$REPO_ROOT" == /scratch/* ]] && export UV_CACHE_DIR="$(dirname "$REPO_ROOT")/.cache/uv"
-export NANOCHAT_BASE_DIR="${NANOCHAT_BASE_DIR:-$HOME/.cache/nanochat}"
-[[ "$REPO_ROOT" == /scratch/* ]] && export NANOCHAT_BASE_DIR="$(dirname "$REPO_ROOT")/.cache/nanochat"
+export NANOCHAT_BASE_DIR="$HOME/.cache/nanochat"
 mkdir -p $NANOCHAT_BASE_DIR
-[[ -n "$UV_CACHE_DIR" ]] && mkdir -p "$UV_CACHE_DIR"
+
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 ATTEMPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$REPO_ROOT"
 
@@ -60,12 +56,13 @@ torchrun --standalone --nproc_per_node=8 -m scripts.base_train -- \
     --depth=26 \
     --target-param-data-ratio=8.25 \
     --fp8 \
+    --use-teon \
     --compile-mode=$COMPILE_MODE \
     --run=$WANDB_RUN \
     --eval-every=1000 \
     --sample-every=-1 \
     --core-metric-every=999999 \
-    --device-batch-size=32
+    --device-batch-size=16
 
 torchrun --standalone --nproc_per_node=8 -m scripts.base_eval -- --device-batch-size=16
 

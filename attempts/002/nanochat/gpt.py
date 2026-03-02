@@ -435,11 +435,10 @@ class GPT(nn.Module):
 
     def setup_optimizer(self, unembedding_lr=0.004, embedding_lr=0.2, matrix_lr=0.02,
                        weight_decay=0.0, adam_betas=(0.8, 0.95), scalar_lr=0.5,
-                       use_hyperball=False):
+                       use_hyperball=False, use_teon=False):
         model_dim = self.config.n_embd
         ddp, rank, local_rank, world_size = get_dist_info()
 
-        matrix_params = list(self.transformer.h.parameters())
         value_embeds_params = list(self.value_embeds.parameters())
         embedding_params = list(self.transformer.wte.parameters())
         lm_head_params = list(self.lm_head.parameters())
@@ -464,15 +463,68 @@ class GPT(nn.Module):
             dict(kind='adamw', params=new_linear_params, lr=scalar_lr * 0.01, betas=adam_betas, eps=1e-10, weight_decay=0.0),
             dict(kind='adamw', params=bigram_params, lr=embedding_lr * dmodel_lr_scale, betas=adam_betas, eps=1e-10, weight_decay=0.0),
         ]
-        # Muon groups (or Hyperball) for matrix params
-        for shape in sorted({p.shape for p in matrix_params}):
-            group_params = [p for p in matrix_params if p.shape == shape]
-            param_groups.append(dict(
-                kind='muon', params=group_params, lr=matrix_lr,
-                momentum=0.95, ns_steps=5, beta2=0.95, weight_decay=weight_decay,
-                # Source: nanochat PR #498 — Hyperball option (item 9)
-                use_hyperball=use_hyperball,
-            ))
+
+        if use_teon:
+            # TEON: type-aware grouping for QKV attention params (cross-layer orthogonalization)
+            qkv_by_type = {'c_q': [], 'c_k': [], 'c_v': []}
+            other_matrix = []
+            for name, p in self.transformer.h.named_parameters():
+                if p.ndim < 2:
+                    # 1D params (norms, scalars) -> regular Muon by shape
+                    other_matrix.append(p)
+                    continue
+                matched = False
+                for key in qkv_by_type:
+                    if f'.attn.{key}.weight' in name:
+                        layer_idx = int(name.split('.')[0])
+                        qkv_by_type[key].append((layer_idx, p))
+                        matched = True
+                        break
+                if not matched:
+                    other_matrix.append(p)
+
+            # Create TEON groups: pair consecutive layers for Q, K, V separately
+            for key in qkv_by_type:
+                sorted_params = sorted(qkv_by_type[key], key=lambda x: x[0])
+                # Flat list of params — consecutive entries form pairs
+                paired_params = []
+                for i in range(0, len(sorted_params) - 1, 2):
+                    paired_params.append(sorted_params[i][1])
+                    paired_params.append(sorted_params[i+1][1])
+                if paired_params:
+                    param_groups.append(dict(
+                        kind='teon', params=paired_params,
+                        lr=matrix_lr, momentum=0.95, ns_steps=5,
+                        beta2=0.95, weight_decay=weight_decay,
+                    ))
+                # Odd remainder -> regular Muon
+                if len(sorted_params) % 2 == 1:
+                    other_matrix.append(sorted_params[-1][1])
+
+            # Remaining matrix params (c_proj, MLP, gates, norms) -> regular Muon by shape
+            for shape in sorted({p.shape for p in other_matrix}):
+                group_params = [p for p in other_matrix if p.shape == shape]
+                param_groups.append(dict(
+                    kind='muon', params=group_params, lr=matrix_lr,
+                    momentum=0.95, ns_steps=5, beta2=0.95, weight_decay=weight_decay,
+                    use_hyperball=use_hyperball,
+                ))
+
+            n_teon_params = sum(len(g['params']) for g in param_groups if g['kind'] == 'teon')
+            n_muon_params = sum(len(g['params']) for g in param_groups if g['kind'] == 'muon')
+            print0(f"TEON enabled: {n_teon_params} QKV params in TEON groups, {n_muon_params} remaining in Muon groups")
+        else:
+            # Original shape-only grouping (unchanged)
+            matrix_params = list(self.transformer.h.parameters())
+            # Muon groups (or Hyperball) for matrix params
+            for shape in sorted({p.shape for p in matrix_params}):
+                group_params = [p for p in matrix_params if p.shape == shape]
+                param_groups.append(dict(
+                    kind='muon', params=group_params, lr=matrix_lr,
+                    momentum=0.95, ns_steps=5, beta2=0.95, weight_decay=weight_decay,
+                    # Source: nanochat PR #498 — Hyperball option (item 9)
+                    use_hyperball=use_hyperball,
+                ))
 
         Factory = DistMuonAdamW if ddp else MuonAdamW
         optimizer = Factory(param_groups)

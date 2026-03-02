@@ -92,6 +92,45 @@ polar_express_coeffs = [
     (2.3465413258596377, -1.7097828382687081, 0.42323551169305323),
 ]
 
+def _nesterov_momentum(stacked_grads: Tensor, momentum_buffer: Tensor, momentum_t: Tensor) -> Tensor:
+    """Nesterov momentum. Modifies momentum_buffer and stacked_grads in-place. Returns g."""
+    momentum = momentum_t.to(stacked_grads.dtype)
+    momentum_buffer.lerp_(stacked_grads, 1 - momentum)
+    return stacked_grads.lerp_(momentum_buffer, momentum)
+
+
+def _polar_express(g: Tensor, ns_steps: int) -> Tensor:
+    """Polar Express orthogonalization with Chebyshev-optimal coefficients (item 13). Returns orthogonalized g."""
+    X = g.bfloat16()
+    X = X / (X.norm(dim=(-2, -1), keepdim=True) * 1.02 + 1e-6)
+    if g.size(-2) > g.size(-1):  # Tall matrix
+        for a, b, c in polar_express_coeffs[:ns_steps]:
+            A = X.mT @ X
+            B = b * A + c * (A @ A)
+            X = a * X + X @ B
+    else:  # Wide matrix
+        for a, b, c in polar_express_coeffs[:ns_steps]:
+            A = X @ X.mT
+            B = b * A + c * (A @ A)
+            X = a * X + B @ X
+    return X
+
+
+def _normuon_variance(g: Tensor, second_momentum_buffer: Tensor, beta2_t: Tensor, red_dim: int) -> Tensor:
+    """NorMuon per-neuron variance reduction. Modifies buffer in-place. Returns scaled g."""
+    beta2 = beta2_t.to(g.dtype)
+    v_mean = g.float().square().mean(dim=red_dim, keepdim=True)
+    red_dim_size = g.size(red_dim)
+    v_norm_sq = v_mean.sum(dim=(-2, -1), keepdim=True) * red_dim_size
+    v_norm = v_norm_sq.sqrt()
+    second_momentum_buffer.lerp_(v_mean.to(dtype=second_momentum_buffer.dtype), 1 - beta2)
+    step_size = second_momentum_buffer.clamp_min(1e-10).rsqrt()
+    scaled_sq_sum = (v_mean * red_dim_size) * step_size.float().square()
+    v_norm_new = scaled_sq_sum.sum(dim=(-2, -1), keepdim=True).sqrt()
+    final_scale = step_size * (v_norm / v_norm_new.clamp_min(1e-10))
+    return g * final_scale.to(g.dtype)
+
+
 def _nesterov_polar_variance(
     stacked_grads: Tensor,
     momentum_buffer: Tensor,
@@ -108,38 +147,10 @@ def _nesterov_polar_variance(
     Modifies momentum_buffer and second_momentum_buffer in-place.
     Returns the orthogonalized, variance-reduced update direction g.
     """
-    # Nesterov momentum
-    momentum = momentum_t.to(stacked_grads.dtype)
-    momentum_buffer.lerp_(stacked_grads, 1 - momentum)
-    g = stacked_grads.lerp_(momentum_buffer, momentum)
-
-    # Polar Express with Chebyshev-optimal coefficients (item 13)
-    X = g.bfloat16()
-    X = X / (X.norm(dim=(-2, -1), keepdim=True) * 1.02 + 1e-6)
-    if g.size(-2) > g.size(-1):  # Tall matrix
-        for a, b, c in polar_express_coeffs[:ns_steps]:
-            A = X.mT @ X
-            B = b * A + c * (A @ A)
-            X = a * X + X @ B
-    else:  # Wide matrix
-        for a, b, c in polar_express_coeffs[:ns_steps]:
-            A = X @ X.mT
-            B = b * A + c * (A @ A)
-            X = a * X + B @ X
-    g = X
-
-    # NorMuon variance reduction
-    beta2 = beta2_t.to(g.dtype)
-    v_mean = g.float().square().mean(dim=red_dim, keepdim=True)
-    red_dim_size = g.size(red_dim)
-    v_norm_sq = v_mean.sum(dim=(-2, -1), keepdim=True) * red_dim_size
-    v_norm = v_norm_sq.sqrt()
-    second_momentum_buffer.lerp_(v_mean.to(dtype=second_momentum_buffer.dtype), 1 - beta2)
-    step_size = second_momentum_buffer.clamp_min(1e-10).rsqrt()
-    scaled_sq_sum = (v_mean * red_dim_size) * step_size.float().square()
-    v_norm_new = scaled_sq_sum.sum(dim=(-2, -1), keepdim=True).sqrt()
-    final_scale = step_size * (v_norm / v_norm_new.clamp_min(1e-10))
-    return g * final_scale.to(g.dtype)
+    g = _nesterov_momentum(stacked_grads, momentum_buffer, momentum_t)
+    g = _polar_express(g, ns_steps)
+    g = _normuon_variance(g, second_momentum_buffer, beta2_t, red_dim)
+    return g
 
 
 @torch.compile(dynamic=False, fullgraph=True)
@@ -199,6 +210,53 @@ def hyperball_step_fused(
     # Project each parameter back to its initial Frobenius norm (hypersphere constraint).
     current_norms = stacked_params.norm(dim=(-2, -1), keepdim=True)
     stacked_params.mul_(cached_norms / current_norms.clamp_min(1e-10))
+
+
+# -----------------------------------------------------------------------------
+"""
+TEON (Tensorized Orthonormalization) optimizer kernel.
+Generalizes Muon by stacking gradients from paired consecutive layers (K=2)
+into a concatenated matrix and orthogonalizing them jointly, capturing
+cross-layer correlations for improved sample efficiency.
+Source: TEON paper (Cross-Layer Muon)
+"""
+
+@torch.compile(dynamic=False, fullgraph=True)
+def teon_step_fused(
+    stacked_grads_concat: Tensor,      # (N_pairs, m, 2n) - mode-1 concatenated
+    stacked_params_concat: Tensor,     # (N_pairs, m, 2n)
+    momentum_buffer_concat: Tensor,    # (N_pairs, m, 2n)
+    second_momentum_buffer: Tensor,    # (2*N_pairs, m, 1) or (2*N_pairs, 1, n) - per-layer
+    momentum_t: Tensor,                # () - 0-D CPU tensor
+    lr_t: Tensor,                      # () - 0-D CPU tensor
+    wd_t: Tensor,                      # () - 0-D CPU tensor
+    beta2_t: Tensor,                   # () - 0-D CPU tensor
+    ns_steps: int,
+    red_dim: int,
+    n_orig: int,                       # original column dimension (for split)
+) -> None:
+    """TEON step: joint momentum + polar express on concatenated pairs, per-layer NorMuon + update."""
+    # 1. Nesterov momentum on concatenated tensors (N_pairs, m, 2n)
+    g = _nesterov_momentum(stacked_grads_concat, momentum_buffer_concat, momentum_t)
+    # 2. Polar Express on concatenated (uses wide path: A = X @ X.mT is (m,m) — same cost as square)
+    g = _polar_express(g, ns_steps)
+    # 3. Unconcatenate: (N_pairs, m, 2n) -> (2*N_pairs, m, n) for per-layer processing
+    n_pairs = g.size(0)
+    g_layers = torch.cat([g[..., :n_orig], g[..., n_orig:]], dim=0)  # (2*N_pairs, m, n)
+    # 4. NorMuon variance reduction per-layer
+    g_layers = _normuon_variance(g_layers, second_momentum_buffer, beta2_t, red_dim)
+    # 5. Re-split processed gradients
+    g_even = g_layers[:n_pairs]   # (N_pairs, m, n)
+    g_odd = g_layers[n_pairs:]    # (N_pairs, m, n)
+    # 6. Cautious WD + update, writing directly into stacked_params_concat views
+    lr = lr_t.to(g_even.dtype)
+    wd = wd_t.to(g_even.dtype)
+    p_even = stacked_params_concat[..., :n_orig]
+    mask_even = (g_even * p_even) >= 0
+    p_even.sub_(lr * g_even + lr * wd * p_even * mask_even)
+    p_odd = stacked_params_concat[..., n_orig:]
+    mask_odd = (g_odd * p_odd) >= 0
+    p_odd.sub_(lr * g_odd + lr * wd * p_odd * mask_odd)
 
 
 # Source: modded-nanogpt record #57 PR #190 — mantissa tracking for BF16 precision (item 14)
@@ -326,12 +384,65 @@ class MuonAdamW(torch.optim.Optimizer):
 
         torch._foreach_copy_(params, list(stacked_params.unbind(0)))
 
+    def _step_teon(self, group: dict) -> None:
+        """TEON step: consecutive params in the flat list form pairs for cross-layer orthogonalization."""
+        params: list[Tensor] = group['params']
+        if not params:
+            return
+        num_pairs = len(params) // 2
+        p0 = params[0]
+        m, n = p0.shape
+        device, dtype = p0.device, p0.dtype
+
+        state = self.state[p0]
+
+        if "momentum_buffer" not in state:
+            state["momentum_buffer"] = torch.zeros(num_pairs, m, 2 * n, dtype=dtype, device=device)
+        momentum_buffer = state["momentum_buffer"]
+
+        if "second_momentum_buffer" not in state:
+            # Per-layer NorMuon buffer: 2*N_pairs entries (each concat pair splits into 2 layers)
+            if m >= n:
+                state["second_momentum_buffer"] = torch.zeros(2 * num_pairs, m, 1, dtype=dtype, device=device)
+            else:
+                state["second_momentum_buffer"] = torch.zeros(2 * num_pairs, 1, n, dtype=dtype, device=device)
+        second_momentum_buffer = state["second_momentum_buffer"]
+        red_dim = -1 if m >= n else -2
+
+        # Mode-1 concatenation: stack pairs along columns
+        stacked_grads_concat = torch.stack([
+            torch.cat([params[2*i].grad, params[2*i+1].grad], dim=-1) for i in range(num_pairs)
+        ])  # (num_pairs, m, 2n)
+        stacked_params_concat = torch.stack([
+            torch.cat([params[2*i], params[2*i+1]], dim=-1) for i in range(num_pairs)
+        ])  # (num_pairs, m, 2n)
+
+        self._muon_momentum_t.fill_(group["momentum"])
+        self._muon_beta2_t.fill_(group["beta2"])
+        # LR scaling uses original per-layer shape, not concatenated
+        ratio = m / n
+        lr_mult = 1.0 if ratio >= 1 else ratio**-0.5
+        self._muon_lr_t.fill_(group["lr"] * lr_mult)
+        self._muon_wd_t.fill_(group["weight_decay"])
+
+        teon_step_fused(
+            stacked_grads_concat, stacked_params_concat,
+            momentum_buffer, second_momentum_buffer,
+            self._muon_momentum_t, self._muon_lr_t, self._muon_wd_t, self._muon_beta2_t,
+            group["ns_steps"], red_dim, n,
+        )
+
+        # Copy updated params back (unconcatenate from stacked_params_concat)
+        for i in range(num_pairs):
+            params[2*i].copy_(stacked_params_concat[i, :, :n])
+            params[2*i+1].copy_(stacked_params_concat[i, :, n:])
+
     @torch.no_grad()
     def step(self, do_adam=True):
         """
         Args:
             do_adam: if False, skip AdamW groups (item 22 — heterogeneous batch sizes).
-                     Muon groups always step.
+                     Muon/TEON groups always step.
         """
         for group in self.param_groups:
             if group['kind'] == 'adamw':
@@ -340,6 +451,8 @@ class MuonAdamW(torch.optim.Optimizer):
                     self._step_adamw(group)
             elif group['kind'] == 'muon':
                 self._step_muon(group)
+            elif group['kind'] == 'teon':
+                self._step_teon(group)
             else:
                 raise ValueError(f"Unknown optimizer kind: {group['kind']}")
 
@@ -418,6 +531,33 @@ class DistMuonAdamW(torch.optim.Optimizer):
         future = dist.reduce_scatter_tensor(grad_chunk, stacked_grads, op=dist.ReduceOp.AVG, async_op=True).get_future()
 
         return dict(future=future, grad_chunk=grad_chunk, stacked_grads=stacked_grads, chunk_size=chunk_size)
+
+    def _reduce_teon(self, group: dict, world_size: int) -> dict:
+        """TEON reduce: mode-1 concatenate grad pairs, then reduce_scatter concatenated matrices."""
+        params = group['params']
+        num_pairs = len(params) // 2
+        p0 = params[0]
+        m, n = p0.shape
+        device, dtype = p0.device, p0.dtype
+        concat_shape = (m, 2 * n)
+
+        chunk_size = (num_pairs + world_size - 1) // world_size
+        padded_num = chunk_size * world_size
+
+        # Mode-1 concatenation of grad pairs
+        grad_concat = torch.stack([
+            torch.cat([params[2*i].grad, params[2*i+1].grad], dim=-1) for i in range(num_pairs)
+        ])  # (num_pairs, m, 2n)
+        stacked_grads = torch.empty(padded_num, *concat_shape, dtype=dtype, device=device)
+        stacked_grads[:num_pairs].copy_(grad_concat)
+        if num_pairs < padded_num:
+            stacked_grads[num_pairs:].zero_()
+
+        grad_chunk = torch.empty(chunk_size, *concat_shape, dtype=dtype, device=device)
+        future = dist.reduce_scatter_tensor(grad_chunk, stacked_grads, op=dist.ReduceOp.AVG, async_op=True).get_future()
+
+        return dict(future=future, grad_chunk=grad_chunk, stacked_grads=stacked_grads,
+                    chunk_size=chunk_size, n_orig=n, num_pairs=num_pairs)
 
     def _compute_adamw(self, group: dict, info: dict, gather_list: list, rank: int, world_size: int) -> None:
         param_infos = info['param_infos']
@@ -521,10 +661,81 @@ class DistMuonAdamW(torch.optim.Optimizer):
         future = dist.all_gather_into_tensor(stacked_params, updated_params, async_op=True).get_future()
         gather_list.append(dict(future=future, stacked_params=stacked_params, params=params))
 
+    def _compute_teon(self, group: dict, info: dict, gather_list: list, rank: int) -> None:
+        """TEON compute: run teon_step_fused on this rank's chunk of concatenated pairs."""
+        info['future'].wait()
+        params = group['params']
+        num_pairs = info['num_pairs']
+        chunk_size = info['chunk_size']
+        grad_chunk = info['grad_chunk']
+        n_orig = info['n_orig']
+        p0 = params[0]
+        m, n = p0.shape
+        device, dtype = p0.device, p0.dtype
+        concat_shape = (m, 2 * n)
+
+        start_idx = rank * chunk_size
+        num_owned = min(chunk_size, max(0, num_pairs - start_idx))
+
+        state = self.state[p0]
+        if "momentum_buffer" not in state:
+            state["momentum_buffer"] = torch.zeros(chunk_size, *concat_shape, dtype=dtype, device=device)
+        if "second_momentum_buffer" not in state:
+            # Per-layer variance: 2*chunk_size entries (each concat pair -> 2 individual layers)
+            if m >= n:
+                state["second_momentum_buffer"] = torch.zeros(2 * chunk_size, m, 1, dtype=dtype, device=device)
+            else:
+                state["second_momentum_buffer"] = torch.zeros(2 * chunk_size, 1, n, dtype=dtype, device=device)
+        red_dim = -1 if m >= n else -2
+
+        updated_params = torch.empty(chunk_size, *concat_shape, dtype=dtype, device=device)
+
+        if num_owned > 0:
+            # Stack the owned concatenated params
+            owned_params = []
+            for i in range(num_owned):
+                pair_idx = start_idx + i
+                owned_params.append(torch.cat([params[2*pair_idx], params[2*pair_idx+1]], dim=-1))
+            stacked_owned = torch.stack(owned_params)  # (num_owned, m, 2n)
+
+            self._muon_momentum_t.fill_(group["momentum"])
+            self._muon_beta2_t.fill_(group["beta2"])
+            # LR scaling uses original per-layer shape
+            ratio = m / n
+            lr_mult = 1.0 if ratio >= 1 else ratio**-0.5
+            self._muon_lr_t.fill_(group["lr"] * lr_mult)
+            self._muon_wd_t.fill_(group["weight_decay"])
+
+            teon_step_fused(
+                grad_chunk[:num_owned], stacked_owned,
+                state["momentum_buffer"][:num_owned],
+                state["second_momentum_buffer"][:2 * num_owned],
+                self._muon_momentum_t, self._muon_lr_t, self._muon_wd_t, self._muon_beta2_t,
+                group["ns_steps"], red_dim, n_orig,
+            )
+            updated_params[:num_owned].copy_(stacked_owned)
+
+        if num_owned < chunk_size:
+            updated_params[num_owned:].zero_()
+
+        stacked_params = info["stacked_grads"]  # Reuse buffer for all_gather
+        future = dist.all_gather_into_tensor(stacked_params, updated_params, async_op=True).get_future()
+        gather_list.append(dict(future=future, stacked_params=stacked_params, params=None,
+                                teon_params=params, n_orig=n_orig, num_pairs=num_pairs))
+
     def _finish_gathers(self, gather_list: list) -> None:
         for info in gather_list:
             info["future"].wait()
-            if info["params"] is not None:
+            if "teon_params" in info:
+                # TEON: unconcatenate and copy back to individual params
+                teon_params = info["teon_params"]
+                n_orig = info["n_orig"]
+                num_pairs = info["num_pairs"]
+                stacked = info["stacked_params"][:num_pairs]
+                for i in range(num_pairs):
+                    teon_params[2*i].copy_(stacked[i, :, :n_orig])
+                    teon_params[2*i+1].copy_(stacked[i, :, n_orig:])
+            elif info["params"] is not None:
                 torch._foreach_copy_(info["params"], list(info["stacked_params"][:len(info["params"])].unbind(0)))
 
     @torch.no_grad()
@@ -549,6 +760,8 @@ class DistMuonAdamW(torch.optim.Optimizer):
                     reduce_infos[idx] = self._reduce_adamw(group, world_size)
             elif group['kind'] == 'muon':
                 reduce_infos[idx] = self._reduce_muon(group, world_size)
+            elif group['kind'] == 'teon':
+                reduce_infos[idx] = self._reduce_teon(group, world_size)
             else:
                 raise ValueError(f"Unknown optimizer kind: {group['kind']}")
 
@@ -563,6 +776,8 @@ class DistMuonAdamW(torch.optim.Optimizer):
                 self._compute_adamw(group, info, gather_list, rank, world_size)
             elif group['kind'] == 'muon':
                 self._compute_muon(group, info, gather_list, rank)
+            elif group['kind'] == 'teon':
+                self._compute_teon(group, info, gather_list, rank)
 
         # Phase 3: wait for gathers, copy back
         self._finish_gathers(gather_list)
