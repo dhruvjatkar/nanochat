@@ -6,10 +6,13 @@
 
 export PATH="$HOME/.local/bin:$PATH"
 export OMP_NUM_THREADS=1
-export NANOCHAT_BASE_DIR="$HOME/.cache/nanochat"
-mkdir -p $NANOCHAT_BASE_DIR
-
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+# Use scratch for uv/nanochat cache when running from /scratch to avoid home quota
+[[ "$REPO_ROOT" == /scratch/* ]] && export UV_CACHE_DIR="$(dirname "$REPO_ROOT")/.cache/uv"
+export NANOCHAT_BASE_DIR="${NANOCHAT_BASE_DIR:-$HOME/.cache/nanochat}"
+[[ "$REPO_ROOT" == /scratch/* ]] && export NANOCHAT_BASE_DIR="$(dirname "$REPO_ROOT")/.cache/nanochat"
+mkdir -p $NANOCHAT_BASE_DIR
+[[ -n "$UV_CACHE_DIR" ]] && mkdir -p "$UV_CACHE_DIR"
 ATTEMPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$REPO_ROOT"
 
