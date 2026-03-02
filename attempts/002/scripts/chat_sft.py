@@ -308,6 +308,10 @@ while True:
                     "n_kv_head": model.config.n_kv_head,
                     "n_embd": model.config.n_embd,
                     "window_pattern": model.config.window_pattern,
+                    "bigram_vocab_multiplier": model.config.bigram_vocab_multiplier,
+                    "use_paired_heads": model.config.use_paired_heads,
+                    "use_half_truncated_rope": model.config.use_half_truncated_rope,
+                    "use_fused_mlp": model.config.use_fused_mlp,
                 },
                 "user_config": user_config, # inputs to the training script
             }

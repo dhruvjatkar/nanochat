@@ -1,8 +1,6 @@
 #!/bin/bash
-# Attempt: 002 (TEON cross-layer orthogonalization)
-# Based on 002-fair + TEON for QKV attention params
-# d26 + fp8 + 1M batch size + ratio 8.25
-# All 30-item experiment plan optimizations applied + TEON cross-layer Muon.
+# Attempt: 002 — 1-GPU smoke test (5 iterations, no heavy eval)
+# Validates: venv setup, tokenizer, base_train forward/backward, SFT, report generation
 
 export PATH="$HOME/.local/bin:$PATH"
 export OMP_NUM_THREADS=1
@@ -28,7 +26,6 @@ command -v uv &> /dev/null || curl -LsSf https://astral.sh/uv/install.sh | sh
 [ -d ".venv" ] || uv venv
 uv sync --extra gpu
 source .venv/bin/activate
-# Source: nanochat PR #128 https://github.com/karpathy/nanochat/pull/128 + arXiv:2411.09009 — cut-cross-entropy for fused CE (item 6)
 uv pip install cut-cross-entropy
 
 # -----------------------------------------------------------------------------
@@ -49,56 +46,39 @@ python -m scripts.tok_train
 python -m scripts.tok_eval
 
 # -----------------------------------------------------------------------------
-# Base model (pretraining)
+# Base model (pretraining) — 1 GPU, 5 iterations only
 echo "Waiting for dataset download to complete..."
 wait $DATASET_DOWNLOAD_PID
 
-# Source: NOTES.md item #2 — reduce eval overhead for faster speedrun (item 4)
-# Source: items 6+7 — fused CE unlocks memory for larger device batch size 32 (item 8)
-torchrun --standalone --nproc_per_node=8 -m scripts.base_train -- \
+torchrun --standalone --nproc_per_node=1 -m scripts.base_train -- \
     --depth=26 \
     --target-param-data-ratio=8.25 \
     --fp8 \
     --use-teon \
     --compile-mode=$COMPILE_MODE \
     --run=$WANDB_RUN \
+    --num-iterations=5 \
     --eval-every=1000 \
     --sample-every=-1 \
     --core-metric-every=999999 \
     --device-batch-size=16
 
-torchrun --standalone --nproc_per_node=8 -m scripts.base_eval -- --device-batch-size=16
+torchrun --standalone --nproc_per_node=1 -m scripts.base_eval -- --device-batch-size=16
 
 # -----------------------------------------------------------------------------
-# SFT
+# SFT — 1 GPU, 5 iterations only
 curl -L -o $NANOCHAT_BASE_DIR/identity_conversations.jsonl \
     https://karpathy-public.s3.us-west-2.amazonaws.com/identity_conversations.jsonl
 
-torchrun --standalone --nproc_per_node=8 -m scripts.chat_sft -- \
+torchrun --standalone --nproc_per_node=1 -m scripts.chat_sft -- \
     --device-batch-size=16 \
+    --num-iterations=5 \
     --run=$WANDB_RUN
 
-torchrun --standalone --nproc_per_node=8 -m scripts.chat_eval -- -i sft
+torchrun --standalone --nproc_per_node=1 -m scripts.chat_eval -- -i sft
 
 # -----------------------------------------------------------------------------
 python -m nanochat.report generate
 
-echo "$(date '+%Y-%m-%d %H:%M:%S') - Run completed (compile_mode=$COMPILE_MODE)" >> "$ATTEMPT_DIR/results.txt"
-
-# -----------------------------------------------------------------------------
-# Source: Chinchilla arXiv:2203.15556 + Hagele et al. arXiv:2405.18392 — sweep lower param/data ratios (item 29)
-# Uncomment to run ratio sweep after the main run:
-# for RATIO in 8.0 7.75 7.5; do
-#     echo "--- Ratio sweep: $RATIO ---"
-#     torchrun --standalone --nproc_per_node=8 -m scripts.base_train -- \
-#         --depth=26 \
-#         --target-param-data-ratio=$RATIO \
-#         --fp8 \
-#         --compile-mode=$COMPILE_MODE \
-#         --device-batch-size=32 \
-#         --eval-every=1000 \
-#         --sample-every=-1 \
-#         --core-metric-every=999999 \
-#         --model-tag=d26-ratio${RATIO} \
-#         --run=${WANDB_RUN}-ratio${RATIO}
-# done
+echo "$(date '+%Y-%m-%d %H:%M:%S') - Smoke test completed (1-GPU, 5 iterations)" >> "$ATTEMPT_DIR/results.txt"
+echo "Smoke test passed!"
