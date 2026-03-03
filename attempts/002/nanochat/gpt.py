@@ -612,9 +612,10 @@ class GPT(nn.Module):
             # Training: compute loss
             softcap = 15
 
-            if HAS_CUT_CE:
+            if HAS_CUT_CE and loss_reduction != 'none':
                 # Source: nanochat PR #128 + arXiv:2411.09009 — fused cross-entropy (item 6)
                 # Avoids materializing the (B*T, vocab_size) logits tensor.
+                # CCE does not support reduction='none' (used by eval), fall back to standard CE.
                 loss = linear_cross_entropy(
                     x, self.lm_head.weight[:self.config.vocab_size],
                     targets.view(-1),
