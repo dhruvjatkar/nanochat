@@ -83,7 +83,9 @@ torchrun --standalone --nproc_per_node=1 -m scripts.chat_sft -- \
     --num-iterations=5 \
     --run=$WANDB_RUN
 
-torchrun --standalone --nproc_per_node=1 -m scripts.chat_eval -- -i sft
+# Limit generative eval to 10 problems per task — full GSM8K (1319 problems) takes
+# ~3 hours on 1 GPU. For smoke testing we only need to verify the pipeline works.
+torchrun --standalone --nproc_per_node=1 -m scripts.chat_eval -- -i sft --max-problems 10
 
 # -----------------------------------------------------------------------------
 python -m nanochat.report generate
