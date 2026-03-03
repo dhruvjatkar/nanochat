@@ -139,9 +139,12 @@ class CausalSelfAttention(nn.Module):
 
         # Source: modded-nanogpt record #49 PR #169 — partial key offset (item 18)
         # Shift upper half of key dims from previous token for implicit bigram attention.
+        # Use torch.cat instead of inplace slice assignment for torch.compile compatibility.
         if self.use_partial_key_offset and T > 1 and kv_cache is None:
             half_dim = self.head_dim // 2
-            k[:, 1:, :, half_dim:] = k[:, :-1, :, half_dim:].clone()
+            k_lower = k[:, :, :, :half_dim]
+            k_upper_shifted = torch.cat([k[:, :1, :, half_dim:], k[:, :-1, :, half_dim:]], dim=1)
+            k = torch.cat([k_lower, k_upper_shifted], dim=-1)
 
         # Apply Rotary Embeddings
         cos, sin = cos_sin
