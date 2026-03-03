@@ -477,10 +477,11 @@ class GPT(nn.Module):
             # TEON: type-aware grouping for QKV attention params (cross-layer orthogonalization)
             qkv_by_type = {'c_q': [], 'c_k': [], 'c_v': []}
             other_matrix = []
+            leftover_1d = []
             for name, p in self.transformer.h.named_parameters():
                 if p.ndim < 2:
-                    # 1D params (norms, scalars) -> regular Muon by shape
-                    other_matrix.append(p)
+                    # 1D params (norms, scalars) -> AdamW (Muon requires 2D+)
+                    leftover_1d.append(p)
                     continue
                 matched = False
                 for key in qkv_by_type:
@@ -519,12 +520,21 @@ class GPT(nn.Module):
                     use_hyperball=use_hyperball,
                 ))
 
+            # 1D transformer params (norms) that aren't already in an AdamW group
+            if leftover_1d:
+                param_groups.append(dict(
+                    kind='adamw', params=leftover_1d, lr=scalar_lr,
+                    betas=adam_betas, eps=1e-10, weight_decay=0.0,
+                ))
+
             n_teon_params = sum(len(g['params']) for g in param_groups if g['kind'] == 'teon')
             n_muon_params = sum(len(g['params']) for g in param_groups if g['kind'] == 'muon')
             print0(f"TEON enabled: {n_teon_params} QKV params in TEON groups, {n_muon_params} remaining in Muon groups")
         else:
             # Original shape-only grouping (unchanged)
-            matrix_params = list(self.transformer.h.parameters())
+            all_h_params = list(self.transformer.h.parameters())
+            matrix_params = [p for p in all_h_params if p.ndim >= 2]
+            leftover_1d = [p for p in all_h_params if p.ndim < 2]
             # Muon groups (or Hyperball) for matrix params
             for shape in sorted({p.shape for p in matrix_params}):
                 group_params = [p for p in matrix_params if p.shape == shape]
@@ -533,6 +543,11 @@ class GPT(nn.Module):
                     momentum=0.95, ns_steps=5, beta2=0.95, weight_decay=weight_decay,
                     # Source: nanochat PR #498 — Hyperball option (item 9)
                     use_hyperball=use_hyperball,
+                ))
+            if leftover_1d:
+                param_groups.append(dict(
+                    kind='adamw', params=leftover_1d, lr=scalar_lr,
+                    betas=adam_betas, eps=1e-10, weight_decay=0.0,
                 ))
 
         Factory = DistMuonAdamW if ddp else MuonAdamW
