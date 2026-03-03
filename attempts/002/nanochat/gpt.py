@@ -36,6 +36,9 @@ from nanochat.flash_attention import flash_attn
 # Source: nanochat PR #128 + arXiv:2411.09009 — cut-cross-entropy for fused CE (item 6)
 try:
     from cut_cross_entropy import linear_cross_entropy
+    # Prevent torch.dynamo from tracing into CCE (it has asserts that break tracing).
+    # CCE still runs its own Triton kernels; it's just opaque to the compiler.
+    linear_cross_entropy = torch.compiler.disable(linear_cross_entropy)
     HAS_CUT_CE = True
 except ImportError:
     HAS_CUT_CE = False
@@ -609,10 +612,9 @@ class GPT(nn.Module):
             # Training: compute loss
             softcap = 15
 
-            if HAS_CUT_CE and loss_reduction != 'none':
+            if HAS_CUT_CE:
                 # Source: nanochat PR #128 + arXiv:2411.09009 — fused cross-entropy (item 6)
                 # Avoids materializing the (B*T, vocab_size) logits tensor.
-                # Skipped for reduction='none' (eval) due to torch.compile incompatibility.
                 loss = linear_cross_entropy(
                     x, self.lm_head.weight[:self.config.vocab_size],
                     targets.view(-1),
