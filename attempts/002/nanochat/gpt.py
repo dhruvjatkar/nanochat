@@ -39,6 +39,9 @@ try:
     # Prevent torch.dynamo from tracing into CCE (it has asserts that break tracing).
     # CCE still runs its own Triton kernels; it's just opaque to the compiler.
     linear_cross_entropy = torch.compiler.disable(linear_cross_entropy)
+    # CCE checks the legacy matmul precision API; set it to match the new API
+    # (torch.backends.fp32_precision = "tf32") used in nanochat/common.py.
+    torch.backends.cuda.matmul.allow_tf32 = True
     HAS_CUT_CE = True
 except ImportError:
     HAS_CUT_CE = False
