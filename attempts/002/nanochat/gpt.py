@@ -619,8 +619,9 @@ class GPT(nn.Module):
                 # Source: nanochat PR #128 + arXiv:2411.09009 — fused cross-entropy (item 6)
                 # Avoids materializing the (B*T, vocab_size) logits tensor.
                 # CCE does not support reduction='none' (used by eval), fall back to standard CE.
+                # CCE backward requires bf16/fp16; norm output may be float32 under fp8/autocast.
                 loss = linear_cross_entropy(
-                    x, self.lm_head.weight[:self.config.vocab_size],
+                    x.bfloat16(), self.lm_head.weight[:self.config.vocab_size],
                     targets,
                     softcap=softcap,
                     reduction=loss_reduction,
