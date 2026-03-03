@@ -569,8 +569,9 @@ class GPT(nn.Module):
         if kv_cache is None and T > 1:
             smear_input = x[:, 1:, :12]  # first 12 dims of positions 1..T-1
             smear_gate_val = torch.sigmoid(self.smear_gate(smear_input))  # (B, T-1, 1)
-            x = x.clone()
-            x[:, 1:] = x[:, 1:] + self.smear_lambda * smear_gate_val * x[:, :-1]
+            # Use torch.cat instead of inplace slice assignment for torch.compile compatibility.
+            smear_addition = self.smear_lambda * smear_gate_val * x[:, :-1]
+            x = torch.cat([x[:, :1], x[:, 1:] + smear_addition], dim=1)
 
         # Transformer blocks
         x_backout = None  # for backout mechanism (item 15)
