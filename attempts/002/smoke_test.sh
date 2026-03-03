@@ -14,19 +14,22 @@ mkdir -p $NANOCHAT_BASE_DIR
 ATTEMPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$REPO_ROOT"
 
-# If this attempt has local script or nanochat overrides, prepend to PYTHONPATH
-if [ -d "$ATTEMPT_DIR/scripts" ] || [ -d "$ATTEMPT_DIR/nanochat" ]; then
-    export PYTHONPATH="$ATTEMPT_DIR:$PYTHONPATH"
-    echo "Using local overrides from: $ATTEMPT_DIR"
-fi
-
 # -----------------------------------------------------------------------------
-# Python venv setup with uv
+# Python venv setup with uv (needs REPO_ROOT as CWD for pyproject.toml)
 command -v uv &> /dev/null || curl -LsSf https://astral.sh/uv/install.sh | sh
 [ -d ".venv" ] || uv venv
 uv sync --extra gpu
 source .venv/bin/activate
 uv pip install cut-cross-entropy
+
+# Switch CWD to attempt dir so local overrides in scripts/ and nanochat/ take
+# priority over the base repo (Python's -m puts CWD at sys.path[0]).
+# REPO_ROOT in PYTHONPATH provides fallback for non-overridden modules.
+if [ -d "$ATTEMPT_DIR/scripts" ] || [ -d "$ATTEMPT_DIR/nanochat" ]; then
+    cd "$ATTEMPT_DIR"
+    export PYTHONPATH="$REPO_ROOT:$PYTHONPATH"
+    echo "Using local overrides from: $ATTEMPT_DIR"
+fi
 
 # -----------------------------------------------------------------------------
 if [ -z "$WANDB_RUN" ]; then
