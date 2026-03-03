@@ -618,7 +618,7 @@ class GPT(nn.Module):
                 # CCE does not support reduction='none' (used by eval), fall back to standard CE.
                 loss = linear_cross_entropy(
                     x, self.lm_head.weight[:self.config.vocab_size],
-                    targets.view(-1),
+                    targets,
                     softcap=softcap,
                     reduction=loss_reduction,
                     ignore_index=-1,
@@ -649,7 +649,7 @@ class GPT(nn.Module):
                     if HAS_CUT_CE:
                         mtp_loss = linear_cross_entropy(
                             x, self.lm_head.weight[:self.config.vocab_size],
-                            mtp_targets.view(-1), softcap=softcap,
+                            mtp_targets, softcap=softcap,
                             reduction=loss_reduction, ignore_index=-1,
                         )
                     else:
