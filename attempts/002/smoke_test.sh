@@ -69,7 +69,9 @@ torchrun --standalone --nproc_per_node=1 -m scripts.base_train -- \
     --core-metric-every=999999 \
     --device-batch-size=16
 
-torchrun --standalone --nproc_per_node=1 -m scripts.base_eval -- --device-batch-size=16
+# Skip standalone base_eval for smoke test — base_train already runs inline eval
+# at the final step (BPB + CORE). The standalone eval adds ~25 min of CORE benchmarks
+# which causes timeouts. Full eval is done in speedrun.sh.
 
 # -----------------------------------------------------------------------------
 # SFT — 1 GPU, 5 iterations only
