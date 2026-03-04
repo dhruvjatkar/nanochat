@@ -101,7 +101,7 @@ RESULT_FILE="$OUTPUT_DIR/result.json"
 # Build the full flags list
 ALL_FLAGS=(
     --depth="${ABLATION_DEPTH}"
-    --run="ablation_${NAME}"
+    --run="dummy"
     --model-tag="ablation_${NAME}"
     --compile-mode="${COMPILE_MODE}"
     --target-param-data-ratio="${TARGET_PARAM_DATA_RATIO:-10.5}"
