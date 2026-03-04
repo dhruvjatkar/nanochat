@@ -1,0 +1,537 @@
+Resolved 135 packages in 52ms
+Uninstalled 1 package in 107ms
+ - cut-cross-entropy==25.1.1
+Resolved 26 packages in 577ms
+Installed 1 package in 92ms
+ + cut-cross-entropy==25.1.1
+Using local overrides from: /projects/Sontag_Lab_Storage/nanochat/attempts/002
+Reset report and wrote header to /projects/Sontag_Lab_Storage/.cache/nanochat/report/header.md
+Downloading 8 shards using 4 workers...
+Target directory: /projects/Sontag_Lab_Storage/.cache/nanochat/base_data
+
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00001.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00006.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00000.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00005.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00002.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00007.parquet (already exists)
+Done! Downloaded: 8/8 shards to /projects/Sontag_Lab_Storage/.cache/nanochat/base_data
+Downloading 370 shards using 4 workers...
+Target directory: /projects/Sontag_Lab_Storage/.cache/nanochat/base_data
+
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00000.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00001.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00002.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00003.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00004.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00005.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00006.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00007.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00008.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00009.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00010.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00011.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00012.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00013.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00014.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00015.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00016.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00017.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00018.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00019.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00020.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00021.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00022.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00023.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00096.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00097.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00098.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00099.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00100.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00101.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00102.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00103.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00104.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00105.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00106.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00107.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00108.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00109.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00110.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00111.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00112.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00113.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00114.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00115.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00116.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00117.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00118.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00119.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00192.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00193.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00194.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00195.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00196.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00197.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00198.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00199.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00200.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00201.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00202.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00203.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00204.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00205.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00206.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00207.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00208.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00209.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00210.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00211.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00212.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00213.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00214.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00215.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00288.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00289.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00290.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00291.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00292.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00293.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00294.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00295.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00296.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00297.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00298.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00299.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00300.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00301.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00302.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00303.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00304.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00305.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00306.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00307.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00308.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00309.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00310.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00311.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00048.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00049.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00050.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00051.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00052.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00053.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00054.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00055.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00056.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00057.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00058.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00059.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00060.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00061.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00062.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00063.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00064.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00065.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00066.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00067.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00068.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00069.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00070.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00071.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00168.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00169.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00170.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00171.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00172.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00173.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00174.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00175.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00176.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00177.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00178.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00179.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00180.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00181.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00182.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00183.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00184.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00185.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00186.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00187.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00188.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00189.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00190.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00191.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00240.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00241.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00242.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00243.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00244.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00245.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00246.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00247.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00248.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00249.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00250.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00251.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00252.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00253.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00254.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00255.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00256.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00257.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00258.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00259.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00260.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00261.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00262.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00263.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00312.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00313.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00314.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00315.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00316.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00317.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00318.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00319.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00320.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00321.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00322.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00323.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00324.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00325.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00326.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00327.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00328.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00329.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00330.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00331.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00332.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00333.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00334.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00335.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00024.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00025.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00026.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00027.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00028.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00029.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00030.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00031.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00032.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00033.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00034.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00035.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00036.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00037.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00038.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00039.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00040.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00041.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00042.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00043.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00044.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00045.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00046.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00047.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00120.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00121.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00122.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00123.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00124.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00125.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00126.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00127.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00128.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00129.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00130.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00131.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00132.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00133.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data/shard_00Done! Downloaded: 370/370 shards to /projects/Sontag_Lab_Storage/.cache/nanochat/base_data
+2026-03-03 04:51:12,219 - rustbpe - [32m[1mINFO[0m - Processing sequences from iterator (buffer_size: 8192)
+2026-03-03 04:53:02,692 - rustbpe - [32m[1mINFO[0m - Processed 532496 sequences total, 2233873 unique
+2026-03-03 04:53:02,817 - rustbpe - [32m[1mINFO[0m - Starting BPE training: 32503 merges to compute
+2026-03-03 04:53:02,817 - rustbpe - [32m[1mINFO[0m - Computing initial pair counts from 2233873 unique sequences
+2026-03-03 04:53:05,563 - rustbpe - [32m[1mINFO[0m - Building heap with 18337 unique pairs
+2026-03-03 04:53:05,564 - rustbpe - [32m[1mINFO[0m - Starting merge loop
+2026-03-03 04:53:08,194 - rustbpe - [32m[1mINFO[0m - Progress: [1m1%[0m (326/32503 merges) - Last merge: (284, 405) -> 581 (frequency: 585677)
+2026-03-03 04:53:08,661 - rustbpe - [32m[1mINFO[0m - Progress: [1m2%[0m (651/32503 merges) - Last merge: (585, 268) -> 906 (frequency: 256195)
+2026-03-03 04:53:08,891 - rustbpe - [32m[1mINFO[0m - Progress: [1m3%[0m (976/32503 merges) - Last merge: (45, 115) -> 1231 (frequency: 154731)
+2026-03-03 04:53:09,103 - rustbpe - [32m[1mINFO[0m - Progress: [1m4%[0m (1301/32503 merges) - Last merge: (931, 680) -> 1556 (frequency: 110577)
+2026-03-03 04:53:09,235 - rustbpe - [32m[1mINFO[0m - Progress: [1m5%[0m (1626/32503 merges) - Last merge: (267, 647) -> 1881 (frequency: 85010)
+2026-03-03 04:53:09,374 - rustbpe - [32m[1mINFO[0m - Progress: [1m6%[0m (1951/32503 merges) - Last merge: (439, 1414) -> 2206 (frequency: 67531)
+2026-03-03 04:53:09,502 - rustbpe - [32m[1mINFO[0m - Progress: [1m7%[0m (2276/32503 merges) - Last merge: (104, 797) -> 2531 (frequency: 55888)
+2026-03-03 04:53:09,607 - rustbpe - [32m[1mINFO[0m - Progress: [1m8%[0m (2601/32503 merges) - Last merge: (270, 450) -> 2856 (frequency: 46671)
+2026-03-03 04:53:09,760 - rustbpe - [32m[1mINFO[0m - Progress: [1m9%[0m (2926/32503 merges) - Last merge: (100, 268) -> 3181 (frequency: 39854)
+2026-03-03 04:53:09,829 - rustbpe - [32m[1mINFO[0m - Progress: [1m10%[0m (3251/32503 merges) - Last merge: (1628, 965) -> 3506 (frequency: 34925)
+2026-03-03 04:53:09,916 - rustbpe - [32m[1mINFO[0m - Progress: [1m11%[0m (3576/32503 merges) - Last merge: (275, 322) -> 3831 (frequency: 30658)
+2026-03-03 04:53:09,991 - rustbpe - [32m[1mINFO[0m - Progress: [1m12%[0m (3901/32503 merges) - Last merge: (3024, 274) -> 4156 (frequency: 27336)
+2026-03-03 04:53:10,039 - rustbpe - [32m[1mINFO[0m - Progress: [1m13%[0m (4226/32503 merges) - Last merge: (707, 112) -> 4481 (frequency: 24581)
+2026-03-03 04:53:10,100 - rustbpe - [32m[1mINFO[0m - Progress: [1m14%[0m (4551/32503 merges) - Last merge: (278, 761) -> 4806 (frequency: 22262)
+2026-03-03 04:53:10,184 - rustbpe - [32m[1mINFO[0m - Progress: [1m15%[0m (4876/32503 merges) - Last merge: (4166, 316) -> 5131 (frequency: 20149)
+2026-03-03 04:53:10,272 - rustbpe - [32m[1mINFO[0m - Progress: [1m16%[0m (5201/32503 merges) - Last merge: (503, 2032) -> 5456 (frequency: 18484)
+2026-03-03 04:53:10,331 - rustbpe - [32m[1mINFO[0m - Progress: [1m17%[0m (5526/32503 merges) - Last merge: (98, 419) -> 5781 (frequency: 16993)
+2026-03-03 04:53:10,387 - rustbpe - [32m[1mINFO[0m - Progress: [1m18%[0m (5851/32503 merges) - Last merge: (1768, 121) -> 6106 (frequency: 15636)
+2026-03-03 04:53:10,446 - rustbpe - [32m[1mINFO[0m - Progress: [1m19%[0m (6176/32503 merges) - Last merge: (945, 520) -> 6431 (frequency: 14422)
+2026-03-03 04:53:10,511 - rustbpe - [32m[1mINFO[0m - Progress: [1m20%[0m (6501/32503 merges) - Last merge: (3634, 310) -> 6756 (frequency: 13425)
+2026-03-03 04:53:10,551 - rustbpe - [32m[1mINFO[0m - Progress: [1m21%[0m (6826/32503 merges) - Last merge: (928, 3435) -> 7081 (frequency: 12538)
+2026-03-03 04:53:10,593 - rustbpe - [32m[1mINFO[0m - Progress: [1m22%[0m (7151/32503 merges) - Last merge: (598, 1542) -> 7406 (frequency: 11705)
+2026-03-03 04:53:10,644 - rustbpe - [32m[1mINFO[0m - Progress: [1m23%[0m (7476/32503 merges) - Last merge: (541, 1426) -> 7731 (frequency: 10908)
+2026-03-03 04:53:10,687 - rustbpe - [32m[1mINFO[0m - Progress: [1m24%[0m (7801/32503 merges) - Last merge: (2379, 2312) -> 8056 (frequency: 10265)
+2026-03-03 04:53:10,721 - rustbpe - [32m[1mINFO[0m - Progress: [1m25%[0m (8126/32503 merges) - Last merge: (261, 6131) -> 8381 (frequency: 9610)
+2026-03-03 04:53:10,757 - rustbpe - [32m[1mINFO[0m - Progress: [1m26%[0m (8451/32503 merges) - Last merge: (300, 305) -> 8706 (frequency: 9038)
+2026-03-03 04:53:10,797 - rustbpe - [32m[1mINFO[0m - Progress: [1m27%[0m (8776/32503 merges) - Last merge: (5277, 738) -> 9031 (frequency: 8508)
+2026-03-03 04:53:10,841 - rustbpe - [32m[1mINFO[0m - Progress: [1m28%[0m (9101/32503 merges) - Last merge: (3821, 2883) -> 9356 (frequency: 8062)
+2026-03-03 04:53:10,884 - rustbpe - [32m[1mINFO[0m - Progress: [1m29%[0m (9426/32503 merges) - Last merge: (5812, 274) -> 9681 (frequency: 7645)
+2026-03-03 04:53:10,912 - rustbpe - [32m[1mINFO[0m - Progress: [1m30%[0m (9751/32503 merges) - Last merge: (336, 110) -> 10006 (frequency: 7259)
+2026-03-03 04:53:10,949 - rustbpe - [32m[1mINFO[0m - Progress: [1m31%[0m (10076/32503 merges) - Last merge: (2985, 419) -> 10331 (frequency: 6881)
+2026-03-03 04:53:10,981 - rustbpe - [32m[1mINFO[0m - Progress: [1m32%[0m (10401/32503 merges) - Last merge: (314, 610) -> 10656 (frequency: 6555)
+2026-03-03 04:53:11,015 - rustbpe - [32m[1mINFO[0m - Progress: [1m33%[0m (10726/32503 merges) - Last merge: (2216, 291) -> 10981 (frequency: 6238)
+2026-03-03 04:53:11,042 - rustbpe - [32m[1mINFO[0m - Progress: [1m34%[0m (11052/32503 merges) - Last merge: (5721, 262) -> 11307 (frequency: 5937)
+2026-03-03 04:53:11,081 - rustbpe - [32m[1mINFO[0m - Progress: [1m35%[0m (11377/32503 merges) - Last merge: (7497, 3176) -> 11632 (frequency: 5680)
+2026-03-03 04:53:11,104 - rustbpe - [32m[1mINFO[0m - Progress: [1m36%[0m (11702/32503 merges) - Last merge: (86, 68) -> 11957 (frequency: 5405)
+2026-03-03 04:53:11,130 - rustbpe - [32m[1mINFO[0m - Progress: [1m37%[0m (12027/32503 merges) - Last merge: (117, 298) -> 12282 (frequency: 5190)
+2026-03-03 04:53:11,156 - rustbpe - [32m[1mINFO[0m - Progress: [1m38%[0m (12352/32503 merges) - Last merge: (4277, 424) -> 12607 (frequency: 5004)
+2026-03-03 04:53:11,174 - rustbpe - [32m[1mINFO[0m - Progress: [1m39%[0m (12677/32503 merges) - Last merge: (401, 10606) -> 12932 (frequency: 4803)
+2026-03-03 04:53:11,199 - rustbpe - [32m[1mINFO[0m - Progress: [1m40%[0m (13002/32503 merges) - Last merge: (277, 269) -> 13257 (frequency: 4620)
+2026-03-03 04:53:11,223 - rustbpe - [32m[1mINFO[0m - Progress: [1m41%[0m (13327/32503 merges) - Last merge: (2606, 291) -> 13582 (frequency: 4459)
+2026-03-03 04:53:11,254 - rustbpe - [32m[1mINFO[0m - Progress: [1m42%[0m (13652/32503 merges) - Last merge: (439, 2375) -> 13907 (frequency: 4298)
+2026-03-03 04:53:11,298 - rustbpe - [32m[1mINFO[0m - Progress: [1m43%[0m (13977/32503 merges) - Last merge: (270, 5666) -> 14232 (frequency: 4153)
+2026-03-03 04:53:11,323 - rustbpe - [32m[1mINFO[0m - Progress: [1m44%[0m (14302/32503 merges) - Last merge: (2748, 115) -> 14557 (frequency: 3989)
+2026-03-03 04:53:11,344 - rustbpe - [32m[1mINFO[0m - Progress: [1m45%[0m (14627/32503 merges) - Last merge: (1536, 11527) -> 14882 (frequency: 3848)
+2026-03-03 04:53:11,361 - rustbpe - [32m[1mINFO[0m - Progress: [1m46%[0m (14952/32503 merges) - Last merge: (678, 280) -> 15207 (frequency: 3724)
+2026-03-03 04:53:11,399 - rustbpe - [32m[1mINFO[0m - Progress: [1m47%[0m (15277/32503 merges) - Last merge: (422, 76) -> 15532 (frequency: 3599)
+2026-03-03 04:53:11,421 - rustbpe - [32m[1mINFO[0m - Progress: [1m48%[0m (15602/32503 merges) - Last merge: (2919, 258) -> 15857 (frequency: 3474)
+2026-03-03 04:53:11,444 - rustbpe - [32m[1mINFO[0m - Progress: [1m49%[0m (15927/32503 merges) - Last merge: (388, 8285) -> 16182 (frequency: 3352)
+2026-03-03 04:53:11,478 - rustbpe - [32m[1mINFO[0m - Progress: [1m50%[0m (16252/32503 merges) - Last merge: (578, 5157) -> 16507 (frequency: 3247)
+2026-03-03 04:53:11,516 - rustbpe - [32m[1mINFO[0m - Progress: [1m51%[0m (16577/32503 merges) - Last merge: (9118, 111) -> 16832 (frequency: 3141)
+2026-03-03 04:53:11,559 - rustbpe - [32m[1mINFO[0m - Progress: [1m52%[0m (16902/32503 merges) - Last merge: (1568, 367) -> 17157 (frequency: 3048)
+2026-03-03 04:53:11,588 - rustbpe - [32m[1mINFO[0m - Progress: [1m53%[0m (17227/32503 merges) - Last merge: (470, 289) -> 17482 (frequency: 2955)
+2026-03-03 04:53:11,607 - rustbpe - [32m[1mINFO[0m - Progress: [1m54%[0m (17552/32503 merges) - Last merge: (388, 5080) -> 17807 (frequency: 2869)
+2026-03-03 04:53:11,641 - rustbpe - [32m[1mINFO[0m - Progress: [1m55%[0m (17877/32503 merges) - Last merge: (527, 399) -> 18132 (frequency: 2790)
+2026-03-03 04:53:11,661 - rustbpe - [32m[1mINFO[0m - Progress: [1m56%[0m (18202/32503 merges) - Last merge: (11741, 538) -> 18457 (frequency: 2718)
+2026-03-03 04:53:11,680 - rustbpe - [32m[1mINFO[0m - Progress: [1m57%[0m (18527/32503 merges) - Last merge: (6662, 1329) -> 18782 (frequency: 2638)
+2026-03-03 04:53:11,706 - rustbpe - [32m[1mINFO[0m - Progress: [1m58%[0m (18852/32503 merges) - Last merge: (1115, 109) -> 19107 (frequency: 2565)
+2026-03-03 04:53:11,723 - rustbpe - [32m[1mINFO[0m - Progress: [1m59%[0m (19177/32503 merges) - Last merge: (1533, 4311) -> 19432 (frequency: 2492)
+2026-03-03 04:53:11,741 - rustbpe - [32m[1mINFO[0m - Progress: [1m60%[0m (19502/32503 merges) - Last merge: (1635, 11936) -> 19757 (frequency: 2418)
+2026-03-03 04:53:11,757 - rustbpe - [32m[1mINFO[0m - Progress: [1m61%[0m (19827/32503 merges) - Last merge: (12142, 1188) -> 20082 (frequency: 2353)
+2026-03-03 04:53:11,771 - rustbpe - [32m[1mINFO[0m - Progress: [1m62%[0m (20152/32503 merges) - Last merge: (7558, 280) -> 20407 (frequency: 2293)
+2026-03-03 04:53:11,787 - rustbpe - [32m[1mINFO[0m - Progress: [1m63%[0m (20477/32503 merges) - Last merge: (542, 20109) -> 20732 (frequency: 2229)
+2026-03-03 04:53:11,808 - rustbpe - [32m[1mINFO[0m - Progress: [1m64%[0m (20802/32503 merges) - Last merge: (403, 4708) -> 21057 (frequency: 2169)
+2026-03-03 04:53:11,824 - rustbpe - [32m[1mINFO[0m - Progress: [1m65%[0m (21127/32503 merges) - Last merge: (1386, 323) -> 21382 (frequency: 2117)
+2026-03-03 04:53:11,840 - rustbpe - [32m[1mINFO[0m - Progress: [1m66%[0m (21452/32503 merges) - Last merge: (1736, 111) -> 21707 (frequency: 2063)
+2026-03-03 04:53:11,859 - rustbpe - [32m[1mINFO[0m - Progress: [1m67%[0m (21778/32503 merges) - Last merge: (388, 2341) -> 22033 (frequency: 2007)
+2026-03-03 04:53:11,872 - rustbpe - [32m[1mINFO[0m - Progress: [1m68%[0m (22103/32503 merges) - Last merge: (3070, 360) -> 22358 (frequency: 1957)
+2026-03-03 04:53:11,886 - rustbpe - [32m[1mINFO[0m - Progress: [1m69%[0m (22428/32503 merges) - Last merge: (504, 6556) -> 22683 (frequency: 1915)
+2026-03-03 04:53:11,906 - rustbpe - [32m[1mINFO[0m - Progress: [1m70%[0m (22753/32503 merges) - Last merge: (508, 59) -> 23008 (frequency: 1863)
+2026-03-03 04:53:11,919 - rustbpe - [32m[1mINFO[0m - Progress: [1m71%[0m (23078/32503 merges) - Last merge: (257, 21115) -> 23333 (frequency: 1817)
+2026-03-03 04:53:11,932 - rustbpe - [32m[1mINFO[0m - Progress: [1m72%[0m (23403/32503 merges) - Last merge: (4042, 1223) -> 23658 (frequency: 1772)
+2026-03-03 04:53:11,948 - rustbpe - [32m[1mINFO[0m - Progress: [1m73%[0m (23728/32503 merges) - Last merge: (407, 16539) -> 23983 (frequency: 1726)
+2026-03-03 04:53:11,970 - rustbpe - [32m[1mINFO[0m - Progress: [1m74%[0m (24053/32503 merges) - Last merge: (282, 282) -> 24308 (frequency: 1684)
+2026-03-03 04:53:11,985 - rustbpe - [32m[1mINFO[0m - Progress: [1m75%[0m (24378/32503 merges) - Last merge: (16262, 685) -> 24633 (frequency: 1646)
+2026-03-03 04:53:11,996 - rustbpe - [32m[1mINFO[0m - Progress: [1m76%[0m (24703/32503 merges) - Last merge: (597, 528) -> 24958 (frequency: 1608)
+2026-03-03 04:53:12,011 - rustbpe - [32m[1mINFO[0m - Progress: [1m77%[0m (25028/32503 merges) - Last merge: (81, 601) -> 25283 (frequency: 1573)
+2026-03-03 04:53:12,031 - rustbpe - [32m[1mINFO[0m - Progress: [1m78%[0m (25353/32503 merges) - Last merge: (5456, 6445) -> 25608 (frequency: 1535)
+2026-03-03 04:53:12,043 - rustbpe - [32m[1mINFO[0m - Progress: [1m79%[0m (25678/32503 merges) - Last merge: (320, 274) -> 25933 (frequency: 1504)
+2026-03-03 04:53:12,056 - rustbpe - [32m[1mINFO[0m - Progress: [1m80%[0m (26003/32503 merges) - Last merge: (1983, 269) -> 26258 (frequency: 1471)
+2026-03-03 04:53:12,075 - rustbpe - [32m[1mINFO[0m - Progress: [1m81%[0m (26328/32503 merges) - Last merge: (7096, 23226) -> 26583 (frequency: 1442)
+2026-03-03 04:53:12,090 - rustbpe - [32m[1mINFO[0m - Progress: [1m82%[0m (26653/32503 merges) - Last merge: (532, 1613) -> 26908 (frequency: 1413)
+2026-03-03 04:53:12,107 - rustbpe - [32m[1mINFO[0m - Progress: [1m83%[0m (26978/32503 merges) - Last merge: (446, 3835) -> 27233 (frequency: 1381)
+2026-03-03 04:53:12,125 - rustbpe - [32m[1mINFO[0m - Progress: [1m84%[0m (27303/32503 merges) - Last merge: (8627, 3935) -> 27558 (frequency: 1353)
+2026-03-03 04:53:12,139 - rustbpe - [32m[1mINFO[0m - Progress: [1m85%[0m (27628/32503 merges) - Last merge: (1594, 8679) -> 27883 (frequency: 1325)
+2026-03-03 04:53:12,155 - rustbpe - [32m[1mINFO[0m - Progress: [1m86%[0m (27953/32503 merges) - Last merge: (4809, 280) -> 28208 (frequency: 1299)
+2026-03-03 04:53:12,169 - rustbpe - [32m[1mINFO[0m - Progress: [1m87%[0m (28278/32503 merges) - Last merge: (11266, 1071) -> 28533 (frequency: 1271)
+2026-03-03 04:53:12,182 - rustbpe - [32m[1mINFO[0m - Progress: [1m88%[0m (28603/32503 merges) - Last merge: (3994, 870) -> 28858 (frequency: 1244)
+2026-03-03 04:53:12,202 - rustbpe - [32m[1mINFO[0m - Progress: [1m89%[0m (28928/32503 merges) - Last merge: (13424, 802) -> 29183 (frequency: 1219)
+2026-03-03 04:53:12,218 - rustbpe - [32m[1mINFO[0m - Progress: [1m90%[0m (29253/32503 merges) - Last merge: (8659, 390) -> 29508 (frequency: 1198)
+2026-03-03 04:53:12,227 - rustbpe - [32m[1mINFO[0m - Progress: [1m91%[0m (29578/32503 merges) - Last merge: (4105, 1571) -> 29833 (frequency: 1177)
+2026-03-03 04:53:12,247 - rustbpe - [32m[1mINFO[0m - Progress: [1m92%[0m (29903/32503 merges) - Last merge: (11903, 364) -> 30158 (frequency: 1154)
+2026-03-03 04:53:12,257 - rustbpe - [32m[1mINFO[0m - Progress: [1m93%[0m (30228/32503 merges) - Last merge: (1609, 373) -> 30483 (frequency: 1131)
+2026-03-03 04:53:12,268 - rustbpe - [32m[1mINFO[0m - Progress: [1m94%[0m (30553/32503 merges) - Last merge: (585, 8745) -> 30808 (frequency: 1109)
+2026-03-03 04:53:12,280 - rustbpe - [32m[1mINFO[0m - Progress: [1m95%[0m (30878/32503 merges) - Last merge: (1027, 99) -> 31133 (frequency: 1088)
+2026-03-03 04:53:12,295 - rustbpe - [32m[1mINFO[0m - Progress: [1m96%[0m (31203/32503 merges) - Last merge: (3540, 6667) -> 31458 (frequency: 1069)
+2026-03-03 04:53:12,306 - rustbpe - [32m[1mINFO[0m - Progress: [1m97%[0m (31528/32503 merges) - Last merge: (19950, 1783) -> 31783 (frequency: 1052)
+2026-03-03 04:53:12,316 - rustbpe - [32m[1mINFO[0m - Progress: [1m98%[0m (31853/32503 merges) - Last merge: (590, 20112) -> 32108 (frequency: 1032)
+2026-03-03 04:53:12,331 - rustbpe - [32m[1mINFO[0m - Progress: [1m99%[0m (32178/32503 merges) - Last merge: (821, 1306) -> 32433 (frequency: 1014)
+2026-03-03 04:53:12,339 - rustbpe - [32m[1mINFO[0m - Progress: [1m100%[0m (32503/32503 merges) - Last merge: (26099, 522) -> 32758 (frequency: 997)
+2026-03-03 04:53:12,339 - rustbpe - [32m[1mINFO[0m - Finished training: 32503 merges completed
+max_chars: 2,000,000,000
+doc_cap: 10,000
+vocab_size: 32,768
+Training time: 120.62s
+Saved tokenizer encoding to /projects/Sontag_Lab_Storage/.cache/nanochat/tokenizer/tokenizer.pkl
+Saved token_bytes to /projects/Sontag_Lab_Storage/.cache/nanochat/tokenizer/token_bytes.pt
+
+Vocab sizes:
+GPT-2: 50257
+GPT-4: 100277
+Ours: 32768
+
+Comparison with GPT-2:
+===============================================================================================
+Text Type  Bytes    GPT-2           Ours            Relative     Better    
+                    Tokens  Ratio   Tokens  Ratio   Diff %      
+-----------------------------------------------------------------------------------------------
+news       1819     [91m404    [0m [91m4.50   [0m [92m403    [0m [92m4.51   [0m [92m   +0.2%[0m     Ours      
+korean     893      [92m745    [0m [92m1.20   [0m [91m797    [0m [91m1.12   [0m [91m   -7.0%[0m     GPT-2     
+code       1259     [92m576    [0m [92m2.19   [0m [91m620    [0m [91m2.03   [0m [91m   -7.6%[0m     GPT-2     
+math       1834     [92m936    [0m [92m1.96   [0m [91m1025   [0m [91m1.79   [0m [91m   -9.5%[0m     GPT-2     
+science    1112     [91m260    [0m [91m4.28   [0m [92m258    [0m [92m4.31   [0m [92m   +0.8%[0m     Ours      
+fwe-train  4208518  [91m900364 [0m [91m4.67   [0m [92m892476 [0m [92m4.72   [0m [92m   +0.9%[0m     Ours      
+fwe-val    4768657  [91m1027270[0m [91m4.64   [0m [92m1023546[0m [92m4.66   [0m [92m   +0.4%[0m     Ours      
+
+Comparison with GPT-4:
+===============================================================================================
+Text Type  Bytes    GPT-4           Ours            Relative     Better    
+                    Tokens  Ratio   Tokens  Ratio   Diff %      
+-----------------------------------------------------------------------------------------------
+news       1819     [92m387    [0m [92m4.70   [0m [91m403    [0m [91m4.51   [0m [91m   -4.1%[0m     GPT-4     
+korean     893      [92m364    [0m [92m2.45   [0m [91m797    [0m [91m1.12   [0m [91m -119.0%[0m     GPT-4     
+code       1259     [92m309    [0m [92m4.07   [0m [91m620    [0m [91m2.03   [0m [91m -100.6%[0m     GPT-4     
+math       1834     [92m832    [0m [92m2.20   [0m [91m1025   [0m [91m1.79   [0m [91m  -23.2%[0m     GPT-4     
+science    1112     [92m249    [0m [92m4.47   [0m [91m258    [0m [91m4.31   [0m [91m   -3.6%[0m     GPT-4     
+fwe-train  4208518  [92m874799 [0m [92m4.81   [0m [91m892476 [0m [91m4.72   [0m [91m   -2.0%[0m     GPT-4     
+fwe-val    4768657  [92m1001442[0m [92m4.76   [0m [91m1023546[0m [91m4.66   [0m [91m   -2.2%[0m     GPT-4     
+Waiting for dataset download to complete...
+
+                                                       █████                █████
+                                                      ░░███                ░░███
+     ████████    ██████   ████████    ██████   ██████  ░███████    ██████  ███████
+    ░░███░░███  ░░░░░███ ░░███░░███  ███░░███ ███░░███ ░███░░███  ░░░░░███░░░███░
+     ░███ ░███   ███████  ░███ ░███ ░███ ░███░███ ░░░  ░███ ░███   ███████  ░███
+     ░███ ░███  ███░░███  ░███ ░███ ░███ ░███░███  ███ ░███ ░███  ███░░███  ░███ ███
+     ████ █████░░████████ ████ █████░░██████ ░░██████  ████ █████░░███████  ░░█████
+    ░░░░ ░░░░░  ░░░░░░░░ ░░░░ ░░░░░  ░░░░░░   ░░░░░░  ░░░░ ░░░░░  ░░░░░░░░   ░░░░░
+    
+Autodetected device type: cuda
+2026-03-03 04:53:33,038 - nanochat.common - [32m[1mINFO[0m - Distributed world size: 1
+GPU: NVIDIA H200 | Peak FLOPS (BF16): 9.89e+14
+Using Flash Attention 3 (Hopper GPU detected).
+Vocab size: 32,768
+Model config:
+{
+  "sequence_len": 2048,
+  "vocab_size": 32768,
+  "n_layer": 26,
+  "n_head": 13,
+  "n_kv_head": 13,
+  "n_embd": 1664,
+  "window_pattern": "SSSL",
+  "bigram_vocab_multiplier": 3,
+  "use_paired_heads": false,
+  "use_half_truncated_rope": true,
+  "use_fused_mlp": true
+}
+FP8 training enabled (tensorwise) - converted 157 layers, skipped 41
+torch.compile mode: default
+Parameter counts:
+wte                     : 54,525,952
+value_embeds            : 708,837,376
+lm_head                 : 54,525,952
+transformer_matrices    : 863,991,596
+scalars                 : 52
+total                   : 1,845,458,812
+Estimated FLOPs per token: 6.185864e+09
+Auto-computed optimal batch size: 1,048,576 tokens
+Scaling LRs by 1.4142 for batch size 1,048,576
+Scaling weight decay from 0.200000 to 0.033910
+Scaling the LR for the AdamW parameters 1/sqrt(1664/768) = 0.679366
+TEON enabled: 78 QKV params in TEON groups, 117 remaining in Muon groups
+Using user-provided number of iterations: 5
+Total training tokens: 5,242,880
+Tokens : Scaling params ratio: 0.01
+Tokens / micro-batch / rank: 16 x 2048 = 32,768
+Total batch size 1,048,576 => gradient accumulation steps: 32
+Step 00000 | Validation bpb: 3.175719
+step 00000/00005 (0.00%) | loss: 10.398181 | lrm: 1.00 | dt: 187251.45ms | tok/sec: 5,599 | mfu: 3.50 | epoch: 1 | total time: 0.00m
+step 00001/00005 (20.00%) | loss: 10.398301 | lrm: 1.00 | dt: 15798.19ms | tok/sec: 66,373 | mfu: 41.51 | epoch: 1 | total time: 0.00m
+step 00002/00005 (40.00%) | loss: 10.778195 | lrm: 1.00 | dt: 12523.01ms | tok/sec: 83,731 | mfu: 52.37 | epoch: 1 | total time: 0.00m
+step 00003/00005 (60.00%) | loss: 10.958669 | lrm: 1.00 | dt: 12476.22ms | tok/sec: 84,045 | mfu: 52.57 | epoch: 1 | total time: 0.00m
+step 00004/00005 (80.00%) | loss: 10.918906 | lrm: 0.65 | dt: 13963.81ms | tok/sec: 75,092 | mfu: 46.97 | epoch: 1 | total time: 0.00m
+Step 00005 | Validation bpb: 3.195181
+Evaluating: hellaswag_zeroshot (0-shot, type: multiple_choice)... accuracy: 0.2560 | centered: 0.0080 | time: 11.48s
+Evaluating: jeopardy (10-shot, type: language_modeling)... accuracy: 0.0000 | centered: 0.0000 | time: 10.88s
+Evaluating: bigbench_qa_wikidata (10-shot, type: language_modeling)... accuracy: 0.0000 | centered: 0.0000 | time: 10.67s
+Evaluating: arc_easy (10-shot, type: multiple_choice)... accuracy: 0.2240 | centered: -0.0347 | time: 11.56s
+Evaluating: arc_challenge (10-shot, type: multiple_choice)... accuracy: 0.2680 | centered: 0.0240 | time: 11.66s
+Evaluating: copa (0-shot, type: multiple_choice)... accuracy: 0.5000 | centered: 0.0000 | time: 2.14s
+Evaluating: commonsense_qa (10-shot, type: multiple_choice)... accuracy: 0.1700 | centered: -0.0375 | time: 12.00s
+Evaluating: piqa (10-shot, type: multiple_choice)... accuracy: 0.4780 | centered: -0.0440 | time: 11.27s
+Evaluating: openbook_qa (0-shot, type: multiple_choice)... accuracy: 0.2240 | centered: -0.0347 | time: 10.41s
+Evaluating: lambada_openai (0-shot, type: language_modeling)... accuracy: 0.0000 | centered: 0.0000 | time: 10.66s
+Evaluating: hellaswag (10-shot, type: multiple_choice)... accuracy: 0.2540 | centered: 0.0053 | time: 19.38s
+Evaluating: winograd (0-shot, type: schema)... accuracy: 0.4835 | centered: -0.0330 | time: 5.58s
+Evaluating: winogrande (0-shot, type: schema)... accuracy: 0.5300 | centered: 0.0600 | time: 10.21s
+Evaluating: bigbench_dyck_languages (10-shot, type: language_modeling)... accuracy: 0.0000 | centered: 0.0000 | time: 11.25s
+Evaluating: agi_eval_lsat_ar (3-shot, type: multiple_choice)... accuracy: 0.2261 | centered: 0.0326 | time: 8.50s
+Evaluating: bigbench_cs_algorithms (10-shot, type: language_modeling)... accuracy: 0.0000 | centered: 0.0000 | time: 10.83s
+Evaluating: bigbench_operators (10-shot, type: language_modeling)... accuracy: 0.0000 | centered: 0.0000 | time: 4.59s
+Evaluating: bigbench_repeat_copy_logic (10-shot, type: language_modeling)... accuracy: 0.0000 | centered: 0.0000 | time: 0.69s
+Evaluating: squad (10-shot, type: language_modeling)... accuracy: 0.0000 | centered: 0.0000 | time: 13.65s
+Evaluating: coqa (0-shot, type: language_modeling)... accuracy: 0.0000 | centered: 0.0000 | time: 10.93s
+Evaluating: boolq (10-shot, type: multiple_choice)... accuracy: 0.3720 | centered: -0.6526 | time: 17.99s
+Evaluating: bigbench_language_identification (10-shot, type: multiple_choice)... accuracy: 0.2760 | centered: 0.2035 | time: 30.50s
+Step 00005 | CORE metric: -0.0229
+2026-03-03 05:05:36,791 - nanochat.checkpoint_manager - [32m[1mINFO[0m - Saved model parameters to: /projects/Sontag_Lab_Storage/.cache/nanochat/base_checkpoints/d26/model_000005.pt
+2026-03-03 05:05:36,804 - nanochat.checkpoint_manager - [32m[1mINFO[0m - Saved metadata to: /projects/Sontag_Lab_Storage/.cache/nanochat/base_checkpoints/d26/meta_000005.json
+2026-03-03 05:05:50,662 - nanochat.checkpoint_manager - [32m[1mINFO[0m - Saved optimizer state to: /projects/Sontag_Lab_Storage/.cache/nanochat/base_checkpoints/d26/optim_000005_rank0.pt
+Peak memory usage: 96741.93MiB
+Total training time: 0.00m
+Minimum validation bpb: 3.175719
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 22 2452k   22  561k    0     0   719k      0  0:00:03 --:--:--  0:00:03  718k100 2452k  100 2452k    0     0  2631k      0 --:--:-- --:--:-- --:--:-- 2629k
+Autodetected device type: cuda
+2026-03-03 05:06:04,530 - nanochat.common - [32m[1mINFO[0m - Distributed world size: 1
+2026-03-03 05:06:04,533 - nanochat.checkpoint_manager - [32m[1mINFO[0m - No model tag provided, guessing model tag: d26
+2026-03-03 05:06:04,535 - nanochat.checkpoint_manager - [32m[1mINFO[0m - Loading model from /projects/Sontag_Lab_Storage/.cache/nanochat/base_checkpoints/d26 with step 5
+2026-03-03 05:06:12,269 - nanochat.checkpoint_manager - [32m[1mINFO[0m - Building model with config: {'sequence_len': 2048, 'vocab_size': 32768, 'n_layer': 26, 'n_head': 13, 'n_kv_head': 13, 'n_embd': 1664, 'window_pattern': 'SSSL', 'bigram_vocab_multiplier': 3, 'use_paired_heads': False, 'use_half_truncated_rope': True, 'use_fused_mlp': True}
+Tokens / micro-batch / rank: 16 x 2048 = 32,768
+Tokens / micro-batch: 32,768
+Total batch size 524,288 => gradient accumulation steps: 16
+Scaling the LR for the AdamW parameters 1/sqrt(1664/768) = 0.679366
+Step 00000 | Validation bpb: 3.4541
+step 00001 (340.00%) | loss: 5.506698 | lrm: -12.00 | dt: 100883.60ms | tok/sec: 5,196 | mfu: 3.25 | epoch: 1 | total time: 0.00m
+Step 00001 | Validation bpb: 4.8727
+2026-03-03 05:10:06,314 - nanochat.checkpoint_manager - [32m[1mINFO[0m - Saved model parameters to: /projects/Sontag_Lab_Storage/.cache/nanochat/chatsft_checkpoints/d26/model_000001.pt
+2026-03-03 05:10:06,326 - nanochat.checkpoint_manager - [32m[1mINFO[0m - Saved metadata to: /projects/Sontag_Lab_Storage/.cache/nanochat/chatsft_checkpoints/d26/meta_000001.json
+2026-03-03 05:10:22,463 - nanochat.checkpoint_manager - [32m[1mINFO[0m - Saved optimizer state to: /projects/Sontag_Lab_Storage/.cache/nanochat/chatsft_checkpoints/d26/optim_000001_rank0.pt
+Peak memory usage: 81607.60MiB
+Total training time: 0.00m
+Minimum validation bpb: 3.4541
+Autodetected device type: cuda
+2026-03-03 05:10:35,083 - nanochat.common - [32m[1mINFO[0m - Distributed world size: 1
+2026-03-03 05:10:35,085 - nanochat.checkpoint_manager - [32m[1mINFO[0m - No model tag provided, guessing model tag: d26
+2026-03-03 05:10:35,087 - nanochat.checkpoint_manager - [32m[1mINFO[0m - Loading model from /projects/Sontag_Lab_Storage/.cache/nanochat/chatsft_checkpoints/d26 with step 1
+2026-03-03 05:10:45,681 - nanochat.checkpoint_manager - [32m[1mINFO[0m - Building model with config: {'sequence_len': 2048, 'vocab_size': 32768, 'n_layer': 26, 'n_head': 13, 'n_kv_head': 13, 'n_embd': 1664, 'window_pattern': 'SSSL', 'bigram_vocab_multiplier': 3, 'use_paired_heads': False, 'use_half_truncated_rope': True, 'use_fused_mlp': True}
+Final: 3/10 (30.00%)
+ARC-Easy accuracy: 30.00%
+Final: 5/10 (50.00%)
+ARC-Challenge accuracy: 50.00%
+Final: 3/10 (30.00%)
+MMLU accuracy: 30.00%
+/projects/Sontag_Lab_Storage/nanochat/.venv/lib/python3.10/site-packages/torch/nn/functional.py:2920: UserWarning: Mismatch dtype between input and weight: input dtype = c10::BFloat16, weight dtype = float, Cannot dispatch to fused implementation. (Triggered internally at /pytorch/aten/src/ATen/native/layer_norm.cpp:344.)
+  return torch.rms_norm(input, normalized_shape, weight, eps)
+[KRank 0 | 0/1 (0.00%)[KRank 0 | 0/2 (0.00%)[KRank 0 | 0/3 (0.00%)[KRank 0 | 0/4 (0.00%)[KRank 0 | 0/5 (0.00%)[KRank 0 | 0/6 (0.00%)[KRank 0 | 0/7 (0.00%)[KRank 0 | 0/8 (0.00%)[KRank 0 | 0/9 (0.00%)[KRank 0 | 0/10 (0.00%)
+==================================================
+Final: 0/10 (0.00%)
+GSM8K accuracy: 0.00%
+Generating test split:   0%|          | 0/164 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 164/164 [00:00<00:00, 6773.13 examples/s]
+[KRank 0 | 0/1 (0.00%)[KRank 0 | 0/2 (0.00%)[KRank 0 | 0/3 (0.00%)[KRank 0 | 0/4 (0.00%)[KRank 0 | 0/5 (0.00%)[KRank 0 | 0/6 (0.00%)[KRank 0 | 0/7 (0.00%)[KRank 0 | 0/8 (0.00%)[KRank 0 | 0/9 (0.00%)[KRank 0 | 0/10 (0.00%)
+==================================================
+Final: 0/10 (0.00%)
+HumanEval accuracy: 0.00%
+[KRank 0 | 0/1 (0.00%)[KRank 0 | 0/2 (0.00%)[KRank 0 | 0/3 (0.00%)[KRank 0 | 0/4 (0.00%)[KRank 0 | 0/5 (0.00%)[KRank 0 | 0/6 (0.00%)[KRank 0 | 0/7 (0.00%)[KRank 0 | 0/8 (0.00%)[KRank 0 | 0/9 (0.00%)[KRank 0 | 0/10 (0.00%)
+==================================================
+Final: 0/10 (0.00%)
+SpellingBee accuracy: 0.00%
+Generating report to /projects/Sontag_Lab_Storage/.cache/nanochat/report/report.md
+Warning: /projects/Sontag_Lab_Storage/.cache/nanochat/report/base-model-loss.md does not exist, skipping
+Warning: /projects/Sontag_Lab_Storage/.cache/nanochat/report/base-model-evaluation.md does not exist, skipping
+Warning: /projects/Sontag_Lab_Storage/.cache/nanochat/report/chat-sft.md does not exist, skipping
+Warning: /projects/Sontag_Lab_Storage/.cache/nanochat/report/chat-rl.md does not exist, skipping
+Warning: /projects/Sontag_Lab_Storage/.cache/nanochat/report/chat-evaluation-rl.md does not exist, skipping
+Copying report.md to current directory for convenience
+Smoke test passed!
