@@ -78,7 +78,7 @@ source .venv/bin/activate
 # REPO_ROOT in PYTHONPATH provides fallback for non-overridden modules.
 if [ -d "$ATTEMPT_DIR/scripts" ] || [ -d "$ATTEMPT_DIR/nanochat" ]; then
     cd "$ATTEMPT_DIR"
-    export PYTHONPATH="$REPO_ROOT:$PYTHONPATH"
+    export PYTHONPATH="$REPO_ROOT:${PYTHONPATH:-}"
     echo "Using local overrides from: $ATTEMPT_DIR"
 fi
 
