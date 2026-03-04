@@ -154,8 +154,8 @@ echo ""
 # =============================================================================
 if [ "$SLURM_MODE" -eq 1 ]; then
     SLURM_SCRIPT="$SCRIPT_DIR/ablations/_slurm_sweep.sh"
-    CONFIGS_LIST="$SCRIPT_DIR/ablations/_slurm_configs.txt"
-    mkdir -p "$SCRIPT_DIR/ablations"
+    CHUNK_DIR="$SCRIPT_DIR/ablations/_slurm_chunks"
+    mkdir -p "$SCRIPT_DIR/ablations" "$CHUNK_DIR"
 
     # Filter out "baseline" — it runs implicitly on every node for fair comparison
     FEATURE_CONFIGS=()
@@ -172,21 +172,34 @@ if [ "$SLURM_MODE" -eq 1 ]; then
         exit 1
     fi
 
-    # Write the configs list (one per line, tab-separated name and flags)
-    > "$CONFIGS_LIST"
-    for entry in "${FEATURE_CONFIGS[@]}"; do
-        config_name="${entry%%|*}"
-        config_flags="${entry#*|}"
-        printf '%s\t%s\n' "$config_name" "$config_flags" >> "$CONFIGS_LIST"
+    # Pack features into chunks to stay within QOS limits.
+    # gpu: MaxSubmitPU=8, gpu-short: MaxSubmitPU=8.
+    # With ~4 features per chunk: 26 features → 7 jobs. Fits easily.
+    FEATURES_PER_CHUNK="${FEATURES_PER_CHUNK:-4}"
+    NUM_CHUNKS=$(( (NUM_FEATURES + FEATURES_PER_CHUNK - 1) / FEATURES_PER_CHUNK ))
+
+    # Write per-chunk config files (one feature per line, tab-separated name\tflags)
+    for chunk_idx in $(seq 0 $((NUM_CHUNKS - 1))); do
+        chunk_file="$CHUNK_DIR/chunk_${chunk_idx}.txt"
+        > "$chunk_file"
+        start=$(( chunk_idx * FEATURES_PER_CHUNK ))
+        end=$(( start + FEATURES_PER_CHUNK ))
+        [ "$end" -gt "$NUM_FEATURES" ] && end=$NUM_FEATURES
+        for i in $(seq "$start" $((end - 1))); do
+            entry="${FEATURE_CONFIGS[$i]}"
+            config_name="${entry%%|*}"
+            config_flags="${entry#*|}"
+            printf '%s\t%s\n' "$config_name" "$config_flags" >> "$chunk_file"
+        done
     done
 
-    MAX_IDX=$((NUM_FEATURES - 1))
+    MAX_IDX=$((NUM_CHUNKS - 1))
 
     # Partition strategy: submit to both gpu-short and gpu so SLURM picks
     # whichever has capacity first, maximizing scheduling throughput.
-    # Time: 2 runs (baseline + feature) × ~5 min + overhead ≈ 15 min.
+    # Time: 1 baseline + N features × ~5 min each + overhead.
     SLURM_PARTITION="${SLURM_PARTITION:-gpu-short,gpu}"
-    SLURM_TIME="${SLURM_TIME:-00:20:00}"
+    SLURM_TIME="${SLURM_TIME:-00:30:00}"
 
     cat > "$SLURM_SCRIPT" <<SLURM_EOF
 #!/bin/bash
@@ -206,96 +219,107 @@ set -euo pipefail
 export NPROC=1
 
 NODE_NAME=\$(hostname)
+CHUNK_FILE="$CHUNK_DIR/chunk_\${SLURM_ARRAY_TASK_ID}.txt"
+
 echo "========================================"
 echo "Node: \$NODE_NAME"
-echo "GPUs: \$(nvidia-smi -L 2>/dev/null | wc -l)x \$(nvidia-smi -L 2>/dev/null | head -1 | sed 's/GPU 0: //' | cut -d'(' -f1)"
+echo "GPU: \$(nvidia-smi -L 2>/dev/null | head -1 | sed 's/GPU 0: //' | cut -d'(' -f1)"
+echo "Chunk: \$SLURM_ARRAY_TASK_ID"
 echo "Start: \$(date '+%Y-%m-%d %H:%M:%S')"
 echo "========================================"
-
-# Read config for this array task
-CONFIGS_LIST="$CONFIGS_LIST"
-TASK_LINE=\$(sed -n "\$((SLURM_ARRAY_TASK_ID + 1))p" "\$CONFIGS_LIST")
-CONFIG_NAME=\$(echo "\$TASK_LINE" | cut -f1)
-CONFIG_FLAGS=\$(echo "\$TASK_LINE" | cut -f2-)
-
 echo ""
-echo "SLURM array task \$SLURM_ARRAY_TASK_ID: feature=\$CONFIG_NAME flags=\$CONFIG_FLAGS"
+echo "Features in this chunk:"
+cat "\$CHUNK_FILE"
 echo ""
 
 # ----------------------------------------------------------------
-# Step 1: Run BASELINE on this node (for fair same-node comparison)
+# Step 1: Run BASELINE on this node (shared by all features in chunk)
 # ----------------------------------------------------------------
 echo "========================================"
 echo " Running BASELINE on \$NODE_NAME"
 echo "========================================"
 
-BASELINE_DIR="$SCRIPT_DIR/ablations/\${CONFIG_NAME}/node_baseline"
-mkdir -p "\$BASELINE_DIR"
+BASELINE_NAME="chunk_\${SLURM_ARRAY_TASK_ID}_baseline"
+bash "$ABLATION_SH" --name "\$BASELINE_NAME"
 
-# Run baseline (output goes to feature subdir so each node has its own)
-bash "$ABLATION_SH" --name "\${CONFIG_NAME}/node_baseline" \
-    2>&1 | tee "\$BASELINE_DIR/log.txt"
+BASELINE_RESULT="$SCRIPT_DIR/ablations/\${BASELINE_NAME}/result.json"
 
 # ----------------------------------------------------------------
-# Step 2: Run FEATURE on this same node
+# Step 2: Run each FEATURE in this chunk, then compute delta
 # ----------------------------------------------------------------
-echo ""
-echo "========================================"
-echo " Running FEATURE: \$CONFIG_NAME on \$NODE_NAME"
-echo "========================================"
+while IFS=\$'\t' read -r CONFIG_NAME CONFIG_FLAGS; do
+    echo ""
+    echo "========================================"
+    echo " Running FEATURE: \$CONFIG_NAME on \$NODE_NAME"
+    echo "========================================"
 
-ABLATION_ARGS=(--name "\$CONFIG_NAME" --skip-setup)
+    ABLATION_ARGS=(--name "\$CONFIG_NAME" --skip-setup)
 
-if [ -n "\$CONFIG_FLAGS" ]; then
-    ABLATION_ARGS+=(--)
-    read -ra FLAG_ARRAY <<< "\$CONFIG_FLAGS"
-    ABLATION_ARGS+=("\${FLAG_ARRAY[@]}")
-fi
+    if [ -n "\$CONFIG_FLAGS" ]; then
+        ABLATION_ARGS+=(--)
+        read -ra FLAG_ARRAY <<< "\$CONFIG_FLAGS"
+        ABLATION_ARGS+=("\${FLAG_ARRAY[@]}")
+    fi
 
-bash "$ABLATION_SH" "\${ABLATION_ARGS[@]}"
+    bash "$ABLATION_SH" "\${ABLATION_ARGS[@]}" || {
+        echo "WARNING: \$CONFIG_NAME FAILED"
+        continue
+    }
 
-# ----------------------------------------------------------------
-# Step 3: Compute same-node delta
-# ----------------------------------------------------------------
-BASELINE_RESULT="\$BASELINE_DIR/result.json"
-FEATURE_RESULT="$SCRIPT_DIR/ablations/\${CONFIG_NAME}/result.json"
-DELTA_FILE="$SCRIPT_DIR/ablations/\${CONFIG_NAME}/delta.json"
+    # Compute same-node delta
+    FEATURE_RESULT="$SCRIPT_DIR/ablations/\${CONFIG_NAME}/result.json"
+    DELTA_FILE="$SCRIPT_DIR/ablations/\${CONFIG_NAME}/delta.json"
 
-if [ -f "\$BASELINE_RESULT" ] && [ -f "\$FEATURE_RESULT" ]; then
-    python3 -c "
-import json, sys
+    if [ -f "\$BASELINE_RESULT" ] && [ -f "\$FEATURE_RESULT" ]; then
+        python3 -c "
+import json
 with open('\$BASELINE_RESULT') as f: bl = json.load(f)
 with open('\$FEATURE_RESULT') as f: ft = json.load(f)
-delta = {}
-delta['feature'] = ft.get('name', '')
-delta['node'] = '\$NODE_NAME'
-delta['baseline_min_val_bpb'] = bl.get('min_val_bpb')
-delta['feature_min_val_bpb'] = ft.get('min_val_bpb')
+delta = {
+    'feature': ft.get('name', ''),
+    'node': '\$NODE_NAME',
+    'baseline_min_val_bpb': bl.get('min_val_bpb'),
+    'feature_min_val_bpb': ft.get('min_val_bpb'),
+    'baseline_elapsed': bl.get('elapsed_seconds'),
+    'feature_elapsed': ft.get('elapsed_seconds'),
+}
 if bl.get('min_val_bpb') is not None and ft.get('min_val_bpb') is not None:
     delta['delta_bpb'] = round(ft['min_val_bpb'] - bl['min_val_bpb'], 6)
-delta['baseline_elapsed'] = bl.get('elapsed_seconds')
-delta['feature_elapsed'] = ft.get('elapsed_seconds')
 with open('\$DELTA_FILE', 'w') as f: json.dump(delta, f, indent=2)
 print(json.dumps(delta, indent=2))
 "
-    echo ""
-    echo "Delta saved to: \$DELTA_FILE"
-fi
+    fi
+
+done < "\$CHUNK_FILE"
 
 echo ""
 echo "========================================"
-echo " Job complete: \$CONFIG_NAME on \$NODE_NAME"
+echo " Chunk \$SLURM_ARRAY_TASK_ID complete on \$NODE_NAME"
 echo "========================================"
 SLURM_EOF
 
     chmod +x "$SLURM_SCRIPT"
+
     echo "Generated SLURM array script: $SLURM_SCRIPT"
-    echo "Generated configs list:        $CONFIGS_LIST"
-    echo "  Feature jobs: $NUM_FEATURES (each runs baseline + feature on same node)"
-    echo "  Partition:    $SLURM_PARTITION"
-    echo "  Time limit:   $SLURM_TIME"
+    echo "Generated chunk files:         $CHUNK_DIR/chunk_*.txt"
     echo ""
-    echo "Submitting SLURM array job (${NUM_FEATURES} tasks)..."
+    echo "  Features:         $NUM_FEATURES"
+    echo "  Features/chunk:   $FEATURES_PER_CHUNK"
+    echo "  Array jobs:       $NUM_CHUNKS (each runs baseline + ${FEATURES_PER_CHUNK} features)"
+    echo "  Partition:        $SLURM_PARTITION"
+    echo "  Time limit:       $SLURM_TIME"
+    echo ""
+
+    # Show chunk contents
+    for chunk_idx in $(seq 0 $((NUM_CHUNKS - 1))); do
+        chunk_file="$CHUNK_DIR/chunk_${chunk_idx}.txt"
+        n_in_chunk=$(wc -l < "$chunk_file")
+        features_list=$(cut -f1 "$chunk_file" | tr '\n' ', ' | sed 's/,$//')
+        printf "  Chunk %d (%d features): %s\n" "$chunk_idx" "$n_in_chunk" "$features_list"
+    done
+    echo ""
+
+    echo "Submitting SLURM array job (${NUM_CHUNKS} tasks)..."
     sbatch "$SLURM_SCRIPT"
     echo ""
     echo "Monitor with:  squeue -u \$USER"
@@ -303,7 +327,7 @@ SLURM_EOF
     echo "Results at:    $SCRIPT_DIR/ablations/<feature>/delta.json"
     echo ""
     echo "After all jobs complete, run:"
-    echo "  python3 scripts/compare_ablations.py $SCRIPT_DIR/ablations/"
+    echo "  python3 scripts/compare_ablations.py --dir $SCRIPT_DIR/ablations/"
     exit 0
 fi
 
