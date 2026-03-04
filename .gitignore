@@ -12,3 +12,4 @@ eval_bundle/
 CLAUDE.md
 wandb/
 *.DS_Store
+PRETRAINING_WALKTHROUGH.md
