@@ -217,6 +217,8 @@ set -euo pipefail
 
 # Single-GPU ablations — lean on resources, just screening features
 export NPROC=1
+# Reduced data ratio for fast screening (~420 steps instead of 2205)
+export TARGET_PARAM_DATA_RATIO=2.0
 
 NODE_NAME=\$(hostname)
 CHUNK_FILE="$CHUNK_DIR/chunk_\${SLURM_ARRAY_TASK_ID}.txt"
