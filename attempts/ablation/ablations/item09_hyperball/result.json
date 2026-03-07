@@ -1,0 +1,13 @@
+{
+    "name": "item09_hyperball",
+    "flags": "--depth=12 --run=dummy --model-tag=ablation_item09_hyperball --compile-mode=default --target-param-data-ratio=2.0 --core-metric-every=999999 --sample-every=-1 --save-every=-1 --use-hyperball",
+    "min_val_bpb": 1.706856,
+    "final_val_bpb": 1.706856,
+    "core_score": -0.0202,
+    "num_params": null,
+    "elapsed_seconds": 628,
+    "depth": 12,
+    "nproc": 1,
+    "extra_flags": "--use-hyperball",
+    "date": "2026-03-05 02:02:24"
+}

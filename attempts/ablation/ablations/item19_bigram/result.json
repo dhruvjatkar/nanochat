@@ -1,0 +1,13 @@
+{
+    "name": "item19_bigram",
+    "flags": "--depth=12 --run=dummy --model-tag=ablation_item19_bigram --compile-mode=default --target-param-data-ratio=2.0 --core-metric-every=999999 --sample-every=-1 --save-every=-1 --bigram-vocab-multiplier 3",
+    "min_val_bpb": 0.993278,
+    "final_val_bpb": 0.993278,
+    "core_score": 0.0969,
+    "num_params": null,
+    "elapsed_seconds": 718,
+    "depth": 12,
+    "nproc": 1,
+    "extra_flags": "--bigram-vocab-multiplier 3",
+    "date": "2026-03-04 18:15:26"
+}

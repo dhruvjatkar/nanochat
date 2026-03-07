@@ -1,0 +1,90 @@
+========================================
+Node: d4055
+GPU: NVIDIA H200 
+Chunk: 2
+Start: 2026-03-04 17:18:01
+========================================
+
+Features in this chunk:
+item18b_partial_key_offset	--use-partial-key-offset
+item19_bigram	--bigram-vocab-multiplier 3
+item20_unet_skip	--use-unet-skip
+item25_fused_mlp	--use-fused-mlp
+
+========================================
+ Running BASELINE on d4055
+========================================
+Using local overrides from: /projects/Sontag_Lab_Storage/nanochat/attempts/ablation
+============================================================
+ Ablation: chunk_2_baseline
+ Depth:    12
+ GPUs:     1
+ Output:   /projects/Sontag_Lab_Storage/nanochat/attempts/ablation/ablations/chunk_2_baseline
+ Extra:    <none>
+============================================================
+Downloading 9 shards using 4 workers...
+Target directory: /projects/Sontag_Lab_Storage/.cache/nanochat/base_data_climbmix
+
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data_climbmix/shard_00003.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data_climbmix/shard_00006.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data_climbmix/shard_06542.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data_climbmix/shard_00001.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data_climbmix/shard_00004.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data_climbmix/shard_00007.parquet (already exists)
+Done! Downloaded: 9/9 shards to /projects/Sontag_Lab_Storage/.cache/nanochat/base_data_climbmix
+
+                                                       █████                █████
+                                                      ░░███                ░░███
+     ████████    ██████   ████████    ██████   ██████  ░███████    ██████  ███████
+    ░░███░░███  ░░░░░███ ░░███░░███  ███░░███ ███░░███ ░███░░███  ░░░░░███░░░███░
+     ░███ ░███   ███████  ░███ ░███ ░███ ░███░███ ░░░  ░███ ░███   ███████  ░███
+     ░███ ░███  ███░░███  ░███ ░███ ░███ ░███░███  ███ ░███ ░███  ███░░███  ░███ ███
+     ████ █████░░████████ ████ █████░░██████ ░░██████  ████ █████░░███████  ░░█████
+    ░░░░ ░░░░░  ░░░░░░░░ ░░░░ ░░░░░  ░░░░░░   ░░░░░░  ░░░░ ░░░░░  ░░░░░░░░   ░░░░░
+    
+Autodetected device type: cuda
+2026-03-04 17:18:39,358 - nanochat.common - [32m[1mINFO[0m - Distributed world size: 1
+GPU: NVIDIA H200 | Peak FLOPS (BF16): 9.89e+14
+✓ Using Flash Attention 3 (Hopper GPU detected), efficient, new and awesome.
+Vocab size: 32,768
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/d.jatkar/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+[rank0]:     return _run_code(code, main_globals, None,
+[rank0]:   File "/home/d.jatkar/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/runpy.py", line 86, in _run_code
+[rank0]:     exec(code, run_globals)
+[rank0]:   File "/projects/Sontag_Lab_Storage/nanochat/attempts/ablation/scripts/base_train.py", line 202, in <module>
+[rank0]:     model = build_model_meta(args.depth) # 1) Build on meta device (only shapes/dtypes, no data)
+[rank0]:   File "/projects/Sontag_Lab_Storage/nanochat/attempts/ablation/scripts/base_train.py", line 178, in build_model_meta
+[rank0]:     config = GPTConfig(
+[rank0]: TypeError: GPTConfig.__init__() got an unexpected keyword argument 'use_chunk_rope'
+[rank0]:[W304 17:18:39.013609262 ProcessGroupNCCL.cpp:1524] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+E0304 17:18:41.469000 3528467 .venv/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/api.py:882] failed (exitcode: 1) local_rank: 0 (pid: 3528482) of binary: /projects/Sontag_Lab_Storage/nanochat/.venv/bin/python3
+Traceback (most recent call last):
+  File "/projects/Sontag_Lab_Storage/nanochat/.venv/bin/torchrun", line 10, in <module>
+    sys.exit(main())
+  File "/projects/Sontag_Lab_Storage/nanochat/.venv/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+  File "/projects/Sontag_Lab_Storage/nanochat/.venv/lib/python3.10/site-packages/torch/distributed/run.py", line 936, in main
+    run(args)
+  File "/projects/Sontag_Lab_Storage/nanochat/.venv/lib/python3.10/site-packages/torch/distributed/run.py", line 927, in run
+    elastic_launch(
+  File "/projects/Sontag_Lab_Storage/nanochat/.venv/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 156, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/projects/Sontag_Lab_Storage/nanochat/.venv/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 293, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+scripts.base_train FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-03-04_17:18:41
+  host      : d4055
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 3528482)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

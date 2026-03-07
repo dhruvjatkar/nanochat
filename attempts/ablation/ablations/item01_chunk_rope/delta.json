@@ -1,0 +1,9 @@
+{
+  "feature": "item01_chunk_rope",
+  "node": "d4055",
+  "baseline_min_val_bpb": 0.995675,
+  "feature_min_val_bpb": 0.995814,
+  "baseline_elapsed": 703,
+  "feature_elapsed": 681,
+  "delta_bpb": 0.000139
+}

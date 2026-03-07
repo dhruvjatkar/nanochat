@@ -1,0 +1,18 @@
+# Ablation: item24_tie_embed
+# Date: 2026-03-05 01:56:31
+# NPROC: 1
+# ABLATION_DEPTH: 12
+# EXTRA_FLAGS: --tie-embed-until 0.67
+
+torchrun --standalone --nproc_per_node=1 -m scripts.base_train -- \
+    --depth=12 \
+    --run=dummy \
+    --model-tag=ablation_item24_tie_embed \
+    --compile-mode=default \
+    --target-param-data-ratio=2.0 \
+    --core-metric-every=999999 \
+    --sample-every=-1 \
+    --save-every=-1 \
+    --tie-embed-until \
+    0.67 \
+

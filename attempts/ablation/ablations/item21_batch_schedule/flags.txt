@@ -1,0 +1,18 @@
+# Ablation: item21_batch_schedule
+# Date: 2026-03-05 02:00:14
+# NPROC: 1
+# ABLATION_DEPTH: 12
+# EXTRA_FLAGS: --batch-schedule 262144:0.1,524288:0.5,1048576:1.0
+
+torchrun --standalone --nproc_per_node=1 -m scripts.base_train -- \
+    --depth=12 \
+    --run=dummy \
+    --model-tag=ablation_item21_batch_schedule \
+    --compile-mode=default \
+    --target-param-data-ratio=2.0 \
+    --core-metric-every=999999 \
+    --sample-every=-1 \
+    --save-every=-1 \
+    --batch-schedule \
+    262144:0.1,524288:0.5,1048576:1.0 \
+

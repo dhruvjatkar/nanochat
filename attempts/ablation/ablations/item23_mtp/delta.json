@@ -1,0 +1,9 @@
+{
+  "feature": "item23_mtp",
+  "node": "d4055",
+  "baseline_min_val_bpb": 0.995702,
+  "feature_min_val_bpb": 1.010973,
+  "baseline_elapsed": 691,
+  "feature_elapsed": 731,
+  "delta_bpb": 0.015271
+}

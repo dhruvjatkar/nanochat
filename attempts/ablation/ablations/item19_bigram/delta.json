@@ -1,0 +1,9 @@
+{
+  "feature": "item19_bigram",
+  "node": "d4054",
+  "baseline_min_val_bpb": 0.995755,
+  "feature_min_val_bpb": 0.993278,
+  "baseline_elapsed": 727,
+  "feature_elapsed": 718,
+  "delta_bpb": -0.002477
+}

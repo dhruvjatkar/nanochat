@@ -1,0 +1,17 @@
+# Ablation: item13_polar_express
+# Date: 2026-03-05 03:12:56
+# NPROC: 1
+# ABLATION_DEPTH: 12
+# EXTRA_FLAGS: --use-polar-express
+
+torchrun --standalone --nproc_per_node=1 -m scripts.base_train -- \
+    --depth=12 \
+    --run=dummy \
+    --model-tag=ablation_item13_polar_express \
+    --compile-mode=default \
+    --target-param-data-ratio=2.0 \
+    --core-metric-every=999999 \
+    --sample-every=-1 \
+    --save-every=-1 \
+    --use-polar-express \
+

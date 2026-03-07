@@ -1,0 +1,26 @@
+item01_chunk_rope	--use-chunk-rope
+item06_fused_ce	--use-fused-ce
+item10a_param_rmsnorm	--use-param-rmsnorm
+item10b_proj_scalars	--use-proj-scalars
+item15_backout	--use-backout
+item16a_smear	--use-smear
+item16b_attn_gate	--use-attn-gate
+item18a_half_trunc_rope	--use-half-truncated-rope
+item18b_partial_key_offset	--use-partial-key-offset
+item19_bigram	--bigram-vocab-multiplier 3
+item20_unet_skip	--use-unet-skip
+item25_fused_mlp	--use-fused-mlp
+item30_paired_heads	--use-paired-heads
+item05_cautious_wd	--use-cautious-wd
+item07_gqa_half	--n-kv-head 3
+item09_hyperball	--use-hyperball
+item12_decoupled_warmdown	--matrix-warmdown-frac 1.0 --adamw-warmdown-frac 0.3
+item13_polar_express	--use-polar-express
+item14_mantissa	--use-mantissa-tracking
+item17_dynamic_window	--dynamic-window
+item21_batch_schedule	--batch-schedule 262144:0.1,524288:0.5,1048576:1.0
+item22_adam_every_2	--adam-every-n 2
+item23_mtp	--mtp-schedule 1,0.5,0.25;1,0.5;1
+item24_tie_embed	--tie-embed-until 0.67
+item27_teon	--use-teon
+compile_reduce_overhead	--compile-mode reduce-overhead

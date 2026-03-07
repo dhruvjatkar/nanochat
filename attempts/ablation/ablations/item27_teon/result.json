@@ -1,0 +1,13 @@
+{
+    "name": "item27_teon",
+    "flags": "--depth=12 --run=dummy --model-tag=ablation_item27_teon --compile-mode=default --target-param-data-ratio=2.0 --core-metric-every=999999 --sample-every=-1 --save-every=-1 --use-teon",
+    "min_val_bpb": 1.000910,
+    "final_val_bpb": 1.000910,
+    "core_score": 0.0879,
+    "num_params": null,
+    "elapsed_seconds": 2184,
+    "depth": 12,
+    "nproc": 1,
+    "extra_flags": "--use-teon",
+    "date": "2026-03-05 03:12:55"
+}

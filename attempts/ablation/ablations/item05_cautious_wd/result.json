@@ -1,0 +1,13 @@
+{
+    "name": "item05_cautious_wd",
+    "flags": "--depth=12 --run=dummy --model-tag=ablation_item05_cautious_wd --compile-mode=default --target-param-data-ratio=2.0 --core-metric-every=999999 --sample-every=-1 --save-every=-1 --use-cautious-wd",
+    "min_val_bpb": 0.995880,
+    "final_val_bpb": 0.995880,
+    "core_score": 0.0824,
+    "num_params": null,
+    "elapsed_seconds": 661,
+    "depth": 12,
+    "nproc": 1,
+    "extra_flags": "--use-cautious-wd",
+    "date": "2026-03-05 01:41:09"
+}

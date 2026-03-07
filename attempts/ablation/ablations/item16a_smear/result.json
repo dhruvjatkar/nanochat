@@ -1,0 +1,13 @@
+{
+    "name": "item16a_smear",
+    "flags": "--depth=12 --run=dummy --model-tag=ablation_item16a_smear --compile-mode=default --target-param-data-ratio=2.0 --core-metric-every=999999 --sample-every=-1 --save-every=-1 --use-smear",
+    "min_val_bpb": 0.989900,
+    "final_val_bpb": 0.989900,
+    "core_score": 0.0751,
+    "num_params": null,
+    "elapsed_seconds": 2226,
+    "depth": 12,
+    "nproc": 1,
+    "extra_flags": "--use-smear",
+    "date": "2026-03-05 03:12:13"
+}

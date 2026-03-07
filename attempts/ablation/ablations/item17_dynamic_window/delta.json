@@ -1,0 +1,9 @@
+{
+  "feature": "item17_dynamic_window",
+  "node": "d4055",
+  "baseline_min_val_bpb": 0.995702,
+  "feature_min_val_bpb": 0.997516,
+  "baseline_elapsed": 691,
+  "feature_elapsed": 1267,
+  "delta_bpb": 0.001814
+}

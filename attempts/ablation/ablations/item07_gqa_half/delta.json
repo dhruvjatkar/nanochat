@@ -1,0 +1,9 @@
+{
+  "feature": "item07_gqa_half",
+  "node": "d4053",
+  "baseline_min_val_bpb": 0.995867,
+  "feature_min_val_bpb": 1.019955,
+  "baseline_elapsed": 691,
+  "feature_elapsed": 643,
+  "delta_bpb": 0.024088
+}

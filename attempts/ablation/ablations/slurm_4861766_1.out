@@ -1,0 +1,96 @@
+========================================
+Node: d1029
+GPU: NVIDIA A100-SXM4-80GB 
+Chunk: 1
+Start: 2026-03-04 17:02:37
+========================================
+
+Features in this chunk:
+item15_backout	--use-backout
+item16a_smear	--use-smear
+item16b_attn_gate	--use-attn-gate
+item18a_half_trunc_rope	--use-half-truncated-rope
+
+========================================
+ Running BASELINE on d1029
+========================================
+Using local overrides from: /projects/Sontag_Lab_Storage/nanochat/attempts/ablation
+============================================================
+ Ablation: chunk_1_baseline
+ Depth:    12
+ GPUs:     1
+ Output:   /projects/Sontag_Lab_Storage/nanochat/attempts/ablation/ablations/chunk_1_baseline
+ Extra:    <none>
+============================================================
+Downloading 9 shards using 4 workers...
+Target directory: /projects/Sontag_Lab_Storage/.cache/nanochat/base_data_climbmix
+
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data_climbmix/shard_00002.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data_climbmix/shard_00006.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data_climbmix/shard_00003.parquet (already exists)
+Skipping /projects/Sontag_Lab_Storage/.cache/nanochat/base_data_climbmix/shard_00007.parquet (already exists)
+Done! Downloaded: 9/9 shards to /projects/Sontag_Lab_Storage/.cache/nanochat/base_data_climbmix
+
+                                                       █████                █████
+                                                      ░░███                ░░███
+     ████████    ██████   ████████    ██████   ██████  ░███████    ██████  ███████
+    ░░███░░███  ░░░░░███ ░░███░░███  ███░░███ ███░░███ ░███░░███  ░░░░░███░░░███░
+     ░███ ░███   ███████  ░███ ░███ ░███ ░███░███ ░░░  ░███ ░███   ███████  ░███
+     ░███ ░███  ███░░███  ░███ ░███ ░███ ░███░███  ███ ░███ ░███  ███░░███  ░███ ███
+     ████ █████░░████████ ████ █████░░██████ ░░██████  ████ █████░░███████  ░░█████
+    ░░░░ ░░░░░  ░░░░░░░░ ░░░░ ░░░░░  ░░░░░░   ░░░░░░  ░░░░ ░░░░░  ░░░░░░░░   ░░░░░
+    
+Autodetected device type: cuda
+2026-03-04 17:03:09,118 - nanochat.common - [32m[1mINFO[0m - Distributed world size: 1
+GPU: NVIDIA A100-SXM4-80GB | Peak FLOPS (BF16): 3.12e+14
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/d.jatkar/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+[rank0]:     return _run_code(code, main_globals, None,
+[rank0]:   File "/home/d.jatkar/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/runpy.py", line 86, in _run_code
+[rank0]:     exec(code, run_globals)
+[rank0]:   File "/projects/Sontag_Lab_Storage/nanochat/attempts/ablation/scripts/base_train.py", line 146, in <module>
+[rank0]:     wandb_run = DummyWandb() if use_dummy_wandb else wandb.init(project="nanochat", name=args.run, config=user_config)
+[rank0]:   File "/projects/Sontag_Lab_Storage/nanochat/.venv/lib/python3.10/site-packages/wandb/sdk/wandb_init.py", line 1581, in init
+[rank0]:     wandb._sentry.reraise(e)
+[rank0]:   File "/projects/Sontag_Lab_Storage/nanochat/.venv/lib/python3.10/site-packages/wandb/analytics/sentry.py", line 162, in reraise
+[rank0]:     raise exc.with_traceback(sys.exc_info()[2])
+[rank0]:   File "/projects/Sontag_Lab_Storage/nanochat/.venv/lib/python3.10/site-packages/wandb/sdk/wandb_init.py", line 1504, in init
+[rank0]:     wi.maybe_login(init_settings)
+[rank0]:   File "/projects/Sontag_Lab_Storage/nanochat/.venv/lib/python3.10/site-packages/wandb/sdk/wandb_init.py", line 190, in maybe_login
+[rank0]:     wandb_login._login(
+[rank0]:   File "/projects/Sontag_Lab_Storage/nanochat/.venv/lib/python3.10/site-packages/wandb/sdk/wandb_login.py", line 318, in _login
+[rank0]:     key, key_status = wlogin.prompt_api_key(referrer=referrer)
+[rank0]:   File "/projects/Sontag_Lab_Storage/nanochat/.venv/lib/python3.10/site-packages/wandb/sdk/wandb_login.py", line 244, in prompt_api_key
+[rank0]:     raise UsageError("api_key not configured (no-tty). call " + directive)
+[rank0]: wandb.errors.errors.UsageError: api_key not configured (no-tty). call wandb.login(key=[your_api_key])
+[rank0]:[W304 17:03:09.953696311 ProcessGroupNCCL.cpp:1524] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+E0304 17:03:10.648000 284627 .venv/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/api.py:882] failed (exitcode: 1) local_rank: 0 (pid: 284751) of binary: /projects/Sontag_Lab_Storage/nanochat/.venv/bin/python3
+Traceback (most recent call last):
+  File "/projects/Sontag_Lab_Storage/nanochat/.venv/bin/torchrun", line 10, in <module>
+    sys.exit(main())
+  File "/projects/Sontag_Lab_Storage/nanochat/.venv/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+  File "/projects/Sontag_Lab_Storage/nanochat/.venv/lib/python3.10/site-packages/torch/distributed/run.py", line 936, in main
+    run(args)
+  File "/projects/Sontag_Lab_Storage/nanochat/.venv/lib/python3.10/site-packages/torch/distributed/run.py", line 927, in run
+    elastic_launch(
+  File "/projects/Sontag_Lab_Storage/nanochat/.venv/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 156, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/projects/Sontag_Lab_Storage/nanochat/.venv/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 293, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+scripts.base_train FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-03-04_17:03:10
+  host      : d1029
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 284751)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

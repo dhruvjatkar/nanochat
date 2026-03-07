@@ -1,0 +1,16 @@
+========================================
+Node: d4052
+GPU: NVIDIA H200 
+Chunk: 4
+Start: 2026-03-04 16:54:16
+========================================
+
+Features in this chunk:
+item12_decoupled_warmdown	--matrix-warmdown-frac 1.0 --adamw-warmdown-frac 0.3
+item13_polar_express	--use-polar-express
+item14_mantissa	--use-mantissa-tracking
+item17_dynamic_window	--dynamic-window
+
+========================================
+ Running BASELINE on d4052
+========================================

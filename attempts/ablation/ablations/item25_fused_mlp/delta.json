@@ -1,0 +1,9 @@
+{
+  "feature": "item25_fused_mlp",
+  "node": "d4054",
+  "baseline_min_val_bpb": 0.995755,
+  "feature_min_val_bpb": 0.995779,
+  "baseline_elapsed": 727,
+  "feature_elapsed": 688,
+  "delta_bpb": 2.4e-05
+}

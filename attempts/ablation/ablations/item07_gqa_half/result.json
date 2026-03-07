@@ -1,0 +1,13 @@
+{
+    "name": "item07_gqa_half",
+    "flags": "--depth=12 --run=dummy --model-tag=ablation_item07_gqa_half --compile-mode=default --target-param-data-ratio=2.0 --core-metric-every=999999 --sample-every=-1 --save-every=-1 --n-kv-head 3",
+    "min_val_bpb": 1.019955,
+    "final_val_bpb": 1.019955,
+    "core_score": 0.0686,
+    "num_params": null,
+    "elapsed_seconds": 643,
+    "depth": 12,
+    "nproc": 1,
+    "extra_flags": "--n-kv-head 3",
+    "date": "2026-03-05 01:51:54"
+}

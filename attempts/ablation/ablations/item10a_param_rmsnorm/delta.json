@@ -1,0 +1,9 @@
+{
+  "feature": "item10a_param_rmsnorm",
+  "node": "d4055",
+  "baseline_min_val_bpb": 0.995675,
+  "feature_min_val_bpb": 1.104705,
+  "baseline_elapsed": 703,
+  "feature_elapsed": 668,
+  "delta_bpb": 0.10903
+}

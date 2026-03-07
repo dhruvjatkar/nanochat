@@ -1,0 +1,9 @@
+{
+  "feature": "item27_teon",
+  "node": "d1028",
+  "baseline_min_val_bpb": 0.999135,
+  "feature_min_val_bpb": 1.00091,
+  "baseline_elapsed": 2223,
+  "feature_elapsed": 2184,
+  "delta_bpb": 0.001775
+}

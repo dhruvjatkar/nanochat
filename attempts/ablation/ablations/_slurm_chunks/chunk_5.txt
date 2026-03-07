@@ -1,0 +1,4 @@
+item21_batch_schedule	--batch-schedule 262144:0.1,524288:0.5,1048576:1.0
+item22_adam_every_2	--adam-every-n 2
+item23_mtp	--mtp-schedule 1,0.5,0.25;1,0.5;1
+item24_tie_embed	--tie-embed-until 0.67

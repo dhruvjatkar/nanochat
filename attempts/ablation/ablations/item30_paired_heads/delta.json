@@ -1,0 +1,9 @@
+{
+  "feature": "item30_paired_heads",
+  "node": "d4053",
+  "baseline_min_val_bpb": 0.995867,
+  "feature_min_val_bpb": 0.998334,
+  "baseline_elapsed": 691,
+  "feature_elapsed": 699,
+  "delta_bpb": 0.002467
+}

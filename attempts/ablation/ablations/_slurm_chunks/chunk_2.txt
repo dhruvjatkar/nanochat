@@ -1,0 +1,4 @@
+item18b_partial_key_offset	--use-partial-key-offset
+item19_bigram	--bigram-vocab-multiplier 3
+item20_unet_skip	--use-unet-skip
+item25_fused_mlp	--use-fused-mlp

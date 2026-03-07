@@ -1,0 +1,9 @@
+{
+  "feature": "item06_fused_ce",
+  "node": "d4055",
+  "baseline_min_val_bpb": 0.995675,
+  "feature_min_val_bpb": 0.995802,
+  "baseline_elapsed": 703,
+  "feature_elapsed": 669,
+  "delta_bpb": 0.000127
+}

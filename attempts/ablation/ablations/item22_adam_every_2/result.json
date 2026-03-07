@@ -1,0 +1,13 @@
+{
+    "name": "item22_adam_every_2",
+    "flags": "--depth=12 --run=dummy --model-tag=ablation_item22_adam_every_2 --compile-mode=default --target-param-data-ratio=2.0 --core-metric-every=999999 --sample-every=-1 --save-every=-1 --adam-every-n 2",
+    "min_val_bpb": 1.079120,
+    "final_val_bpb": 1.079120,
+    "core_score": 0.0374,
+    "num_params": null,
+    "elapsed_seconds": 661,
+    "depth": 12,
+    "nproc": 1,
+    "extra_flags": "--adam-every-n 2",
+    "date": "2026-03-05 01:44:18"
+}

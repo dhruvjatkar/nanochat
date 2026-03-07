@@ -1,0 +1,13 @@
+{
+    "name": "item17_dynamic_window",
+    "flags": "--depth=12 --run=dummy --model-tag=ablation_item17_dynamic_window --compile-mode=default --target-param-data-ratio=2.0 --core-metric-every=999999 --sample-every=-1 --save-every=-1 --dynamic-window",
+    "min_val_bpb": 0.997516,
+    "final_val_bpb": 0.997516,
+    "core_score": 0.0814,
+    "num_params": null,
+    "elapsed_seconds": 1267,
+    "depth": 12,
+    "nproc": 1,
+    "extra_flags": "--dynamic-window",
+    "date": "2026-03-05 01:33:15"
+}

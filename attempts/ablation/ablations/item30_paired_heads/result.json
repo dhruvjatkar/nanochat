@@ -1,0 +1,13 @@
+{
+    "name": "item30_paired_heads",
+    "flags": "--depth=12 --run=dummy --model-tag=ablation_item30_paired_heads --compile-mode=default --target-param-data-ratio=2.0 --core-metric-every=999999 --sample-every=-1 --save-every=-1 --use-paired-heads",
+    "min_val_bpb": 0.998334,
+    "final_val_bpb": 0.998334,
+    "core_score": 0.0686,
+    "num_params": null,
+    "elapsed_seconds": 699,
+    "depth": 12,
+    "nproc": 1,
+    "extra_flags": "--use-paired-heads",
+    "date": "2026-03-05 01:30:06"
+}

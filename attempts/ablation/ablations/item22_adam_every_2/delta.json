@@ -1,0 +1,9 @@
+{
+  "feature": "item22_adam_every_2",
+  "node": "d4055",
+  "baseline_min_val_bpb": 0.995702,
+  "feature_min_val_bpb": 1.07912,
+  "baseline_elapsed": 691,
+  "feature_elapsed": 661,
+  "delta_bpb": 0.083418
+}

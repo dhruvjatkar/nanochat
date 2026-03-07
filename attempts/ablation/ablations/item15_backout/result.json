@@ -1,0 +1,13 @@
+{
+    "name": "item15_backout",
+    "flags": "--depth=12 --run=dummy --model-tag=ablation_item15_backout --compile-mode=default --target-param-data-ratio=2.0 --core-metric-every=999999 --sample-every=-1 --save-every=-1 --use-backout",
+    "min_val_bpb": 0.999527,
+    "final_val_bpb": 0.999527,
+    "core_score": 0.0770,
+    "num_params": null,
+    "elapsed_seconds": 2139,
+    "depth": 12,
+    "nproc": 1,
+    "extra_flags": "--use-backout",
+    "date": "2026-03-05 02:35:05"
+}

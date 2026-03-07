@@ -1,0 +1,9 @@
+{
+  "feature": "item10b_proj_scalars",
+  "node": "d4055",
+  "baseline_min_val_bpb": 0.995675,
+  "feature_min_val_bpb": 0.997382,
+  "baseline_elapsed": 703,
+  "feature_elapsed": 725,
+  "delta_bpb": 0.001707
+}

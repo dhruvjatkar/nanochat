@@ -1,0 +1,4 @@
+item30_paired_heads	--use-paired-heads
+item05_cautious_wd	--use-cautious-wd
+item07_gqa_half	--n-kv-head 3
+item09_hyperball	--use-hyperball

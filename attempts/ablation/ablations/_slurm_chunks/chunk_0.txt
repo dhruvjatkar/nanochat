@@ -1,0 +1,4 @@
+item01_chunk_rope	--use-chunk-rope
+item06_fused_ce	--use-fused-ce
+item10a_param_rmsnorm	--use-param-rmsnorm
+item10b_proj_scalars	--use-proj-scalars
